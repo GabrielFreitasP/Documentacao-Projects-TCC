@@ -1,0 +1,78 @@
+*Explicação projeto 1*
+
+1. Qual sua opinião sobre essa ferramenta?
+Ely: “Eu acho muito válida, eu não conheço nenhuma que faça isso, e acho muito interessante principalmente para as empresas, mas também para ONG’S, para outros órgãos que precisam de projetos.”
+
+2. Existe algum ponto negativo para os desenvolvedores ou para empresa? Se sim, qual?
+Ely: “Bom... acho que, eu não vejo como ponto negativo, mas como coisas que precisam colocar na aplicação. Por exemplo, depois que terminar o projeto, o código fonte é de quem? Os direitos sobre o software que foi desenvolvido é de quem? É da empresa ou do aluno? Porque tem... eu vejo dois modelos de negócio, a empresa pode de repente querer um projeto que ele vai terceirizar, mas depois que terminar o código é da empresa e o aluno não tem direito de comercializar isso. Ou, tem outro modelo que fala o seguinte: empresa precisa de um sistema, eu preciso de repente de um aplicativo para comercializar produto lá. O aluno faz por um preço x que vai ser determinado ali, mas o aluno tem direito de comercializar isso depois e mais do que isso, o código fonte é do aluno. Então isso aí tem que deixar claro, porque pode ser um problema tanto para um lado quanto para o outro.“
+
+3. Qual o ponto principal a ser focado na ferramenta?
+Ely: “Acho que tem que ter uma forma da empresa padronizar a descrição do projeto, você colocar pergunta ali, que o cara fala muito abrangente: ‘Ah, eu preciso de um e-commerce’, tá, mas e aí, o que tem que ter neste e-commerce, fazer uma prévia, tipo se fosse um entrevista estruturada né. A gente vê umas perguntas igual essas que você está fazendo aqui agora que aí o aluno vai ter condição de saber melhor sobre o projeto. E definir também direitinho o prazo que a empresa precisa, que as vezes ela precisa desse projeto para daqui 6 meses, então o aluno de segundo ano de faculdade não pode pegar esse projeto. Tem que ter aí também um prazo.”
+
+3.1. Você acha que precisa ter ... dividir por ano também, dos alunos. Por exemplo, no primeiro ano só vai determinados projetos, ou pode deixar livre mesmo?
+Ely: “Não, acho que pode ... na minha opinião acredito que pode deixar, porque tem alunos as vezes que tá no primeiro ano, mas tem condição de fazer, ele achar que é um projeto interessante, não vejo problema nenhum.”
+
+3.2. E criar um chat para os dois conversarem entre eles?
+Ely: “Fantástico, uma maneira interessante para trocar informação ali, porque às vezes você pode fazer a primeira entrevista às vezes pelo chat né. E legal sim, tirar dúvidas e tal.“
+
+3.3. Você estava falando de tipo fazer um questionário para especificar melhor o projeto... se tivesse alguma coisa que, por exemplo os alunos informassem essas perguntas, tipo, dessem exemplos de perguntas para o software mesmo, ‘poderia perguntar isso porque nesse projeto tive dúvida disso’?
+Ely: “Pode ser ou é uma opção ou então poderia colocar tipo um formulário mesmo com algumas perguntas, por exemplo: você pode colocar alguns requisitos ali perguntando quais são as funcionalidades que a pessoa deseja, quais são os requisitos não funcionais, só que não deixar a pergunta aberta assim, por exemplo: o sistema deve ser web? Ele é aplicativo? O que ele é? E aí você determina com maior quantidade de detalhes.”
+
+4. A ferramenta deve ser desenvolvida visando projetos de determinados cursos ou projetos em geral? (Por exemplo: é só para área de TI?)
+Ely: “Eu acho que geral, aí teria que ter uma classificação, por que? Tem muita gente que precisa de repente de um projeto arquitetônico ou alguma coisa assim, o pessoal da faculdade de arquitetura poderia fazer, ou da engenharia civil, não sei, mas imagina por exemplo uma ONG que precisa construir ou ampliar a unidade dela, um aluno da engenharia civil poderia fazer isso.”
+
+5. Se você fosse o aluno ou a empresa, você usuária a ferramenta, porque?
+Ely: “Usaria com certeza. É ... como aluno, seria interessante usa essa ferramenta por que? Eu criaria um produto já direcionado para alguém, quando você faz algum projeto que você tenha um stakeholder para entrevistar, o projeto fica muito mais de ser desenvolvido, então facilitaria muito para o aluno. Para o lado da empresa, também, o que acontece? Tem muitas empresas que têm projetos, que não são cargo-chefe da empresa, não são projetos digamos que ofereçam risco ou alguma coisa assim, é coisa que por exemplo, você teria algo ‘nossa se tivesse isso seria legal’, eu tenho um cliente que poderia fazer isso, mas eu não tenho mão de obra para fazer isso agora, não é minha prioridade, então ela coloca na plataforma, o aluno vai lá e faz. Possivelmente eu pensando como empresa eu ... se eu ver que por exemplo um aluno fez um TCC, um projeto que eu precisava, eu não só pegaria o projeto, como eu contrataria esse aluno para trabalhar para mim, o cara conseguiu fazer algo que eu precisava. Isso aí é algo que eu acho que vale muito a pena sim.“
+
+6. Quais funcionalidades são essenciais para a ferramenta?
+Ely: “”
+
+7. Você conhece algum produto parecido com esse?
+Ely: “Não, não conheço. O mais parecido que conheço eu não me recordo o nome, sites de freelance, e não tem nada a ver com projeto acadêmico.“
+
+É mais focado para trabalho mesmo, quem já está na área..
+Ely: “Mas aí é legal que você fazendo um negócio voltado para o trabalho de TCC, toda a faculdade tem aluno que precisar fazer TCC e o aluno fica perdido muitas vezes sem saber que projeto faz, então acho muito interessante.“
+
+7.1. Eu estava pensando em fazer esse projeto para vender para as faculdades, você é da faculdade, o login do aluno só vai conseguir logar se for cadastrado na faculdade, tipo, ter uma ser ligado.
+Ely: “Interessante é um meio de renda interessante sim. Você tem duas opções: você pode tentar, que aí eu acho que aí é além de seu TCC, a gente está falando em  criar produto quando você fala em criar produto você tem que pensar na fonte de renda e aí você tem essa fonte de renda que seria vender para as faculdades, é uma,  outra fonte de renda que também você poderia fazer é cobrar um percentual em cima da empresa ou em cima do aluno. Por exemplo a empresa, olha eu preciso desse projeto, eu pago 4 mil reais por ele, por exemplo, um projeto pequeno, aí você cobra um percentual em cima disso, caso o aluno consiga cumprir, é uma opção também, ou as duas né.“
+
+8. O que os alunos sentem mais dificuldade quando vão iniciar um projeto ou um trabalho?
+Ely: “É escolher o tema [risada] com certeza, escolher um tema relevante, o aluno muitas vezes, tem muito alunos que falam: ‘Ah eu quero fazer um TCC em python ou em java’, falando não, mas isso está falando da ferramenta, é igual pegar e falar eu quero construir uma casa usando tijolo, ah legal mas como que é a casa, que você quer resolver? Então software é a mesma coisa. Você quer desenvolver um software ? Ok, mas para resolver qual problema? E essa ferramenta de vocês pode ser útil para isso.”
+
+9.   Como podemos ajudar os desenvolvedores a desenvolver o projeto com a ferramenta?
+Ely: “Tá, aí eu acho que o principal seria … você poderia auxiliar esse ínicio do projeto, por que hoje você tem por exemplo o gestor de TCC, que inclusive foi desenvolvido aqui dentro e tal, que cuida da execução do TCC, mas o de vocês seria para o projeto, então poderia auxiliar é o seguinte: ajudar o aluno a escrever a [...], os quais são os objetivos do projeto, a justificativa, e descrição do problema. Isso poderia ser validado pela empresa. Também poderia auxiliar a fazer o cronograma inicial, porque de repente a empresa pega um projeto que poderia demorar 3 anos, e isso é inviável, o TCC você vai demorar coisa de 1 ano para desenvolver, então ele poderia ajudar nessa parte do cronograma.“
+
+*Explicação projeto 2*
+
+1. Qual sua opinião sobre essa ferramenta?
+Jaqueline: “Achei interessante a ferramenta, gostei da idéia e considero que será bem aplicada e bem produtiva.”
+
+2. Existe algum ponto negativo para os desenvolvedores ou para empresa? Se sim, qual?
+Jaqueline: “Negativo não, apenas a parte de direitos autorais que vocês têm que verificar para para ninguém entender errado, para ficar claro e ninguém achar que foi prejudicado por algum motivo. Que fique claro para todo mundo que a pessoa participa se quiser, mas não vejo nada de negativo.”
+
+2.1. O aluno pode perder a vontade de ter novas idéias?
+Jaqueline: “Eu acho que não, acho que às vezes por ter esses projetos, ele pode gerar outras ideias, mas lógico, sempre tem aqueles que falam: ‘Se têm alguma coisa eu não vou pensar’, ou seja, o comodismo, mas também a pessoa poderia não pensar em nada mesmo e fazer o que o colega da dupla sugeriu ou alguma outra. Mas acho que muito pelo contrário, você pode ver um projeto, ter ideias, e ainda complementar: ‘Ah, por que não isso? Por que não aquilo?’, então colocar ainda outros elementos.”
+
+3. Qual o ponto principal a ser focado na ferramenta? Por exemplo a aproximação dos alunos com empresas.
+Jaqueline: “Sim, acho que é interessante, até às vezes uma futura contratação do aluno pela empresa, por que senão acaba ficando uma via de mão única, ou seja, a empresa estaria se beneficiando mais apensar do aluno estar ajudando, mas o resultado final acabaria sendo mais da empresa, por isso eu acho que tendo benefício dos dois lados será mais produtivo.”
+
+4. A ferramenta deve ser desenvolvida visando projetos de determinados cursos ou projetos em geral? Por exemplo projetos de todos os cursos podem ser cadastrados?
+Jaqueline: ”Eu acho que o objetivo final seria esse, todo mundo cadastrar, mas não quer dizer que o objetivo inicial precise ser este. Por exemplo: começar só com projetos e cursos relacionados à Sistemas de Informação e Engenharia de Software, mas ela estar preparada para crescer, o banco de dados já estar pronto, então não vejo problema ela ter uma primeira versão e uma segunda. Mas eu acho que o objetivo final deveria ser mais de um curso, mas não que seja na primeira versão.”
+
+5. Se você fosse o desenvolvedor ou a empresa, você usuária a ferramenta, porque?
+Jaqueline: “Sim, eu acho que essa proximidade que vai trazer do aluno para a empresa ou o aluno fazendo algo real é muito importante e muito interessante para o aluno e a empresa tendo opções e oportunidade de mão de obras nova com ideias. Falando mais do mercado de TI as empresas estão precisando de gente boa e é nas universidades que a gente tem ótimos alunos, às vezes, tudo bem, não está formado,  mas já são excelentes em várias áreas, então eles estariam procurando nos melhores lugares.”
+
+6. Quais funcionalidades são essenciais para ferramenta?
+Jaqueline: “Fora está parte de clareza, que é essencial e alguns cadastros e algumas coisas que apenas algumas pessoas têm acesso à isso e outras não, então algum cuidado nessa segurança de dados da informação que você tem ali, por que fora isso acaba ficando genérico, o tipo de projeto, isto é mais o objetivo.”
+
+6.1. Na nossa primeira aplicação do TISI a empresa pode escolher quem verá o projeto, se outras empresas poderá ver ou apenas alunos.
+“Perfeito! Acho que tem que ter só para aluno ver, só aluno de tal curso ou só empresa, as outras empresas não, todo mundo, só quem está realmente escrito na FACEF, ela tem que ter a possibilidade de colocar. Vocês também, os alunos que estão escritos podem pesquisar por um determinado tipo de projeto, característica. Um filtro é sempre importante.“
+
+7. Você conhece algum produto parecido com esse?
+Jaqueline: “Não.. não que me lembre agora. Eu não conheço com relação a projetos.”
+
+8. O que os alunos sentem mais dificuldade quando vão iniciar um projeto ou um trabalho?
+Jaqueline: “Vários deles é a ideia. Eles querem fazer o TCC, mas não sabe o que fazer. Alguns já vêm com ideia, mas acho que a minoria gostaria de fazer tal coisa, ou tem um problema a ser resolvido: ‘Meu pai trabalha com isso, meu irmão, meu vizinho, conhecido e tem um problema a ser resolvido’, mas vários deles gostariam de ter uma idéia legal, não só uma ideia, como uma ideia interessante. Por isso acho que um dos grandes problemas é ‘o que eu faço no TCC?’.”
+
+9. Como podemos ajudar os desenvolvedores a desenvolver o projeto com a ferramenta?
+Jaqueline: “Na verdade não sei. A ferramenta deveria trazer mais as especificações do que precisa ou não precisa. Talvez o que pode o que não pode, por exemplo: ‘A empresa precisa que seja em tal linguagem, tal plataforma’, mas fora isso você estaria colocando algo a mais na sua ferramenta, até mais se você estivesse colocando, ideias, opiniões, etc, mas a princípio não seria obrigatório, seria vários elementos que temos em outros aplicativos que se tivesse nesse seria legal. Mas também você estaria saindo um pouco do foco. Eu não vejo isso como algo obrigatório. Sempre que tem mais coisas é melhor, mas como primeiro trabalho de vocês é preciso focar, se não não acaba.”

@@ -1,0 +1,9 @@
+1.  Qual sua opinião sobre essa ferramenta?
+2.  Existe algum ponto negativo para os desenvolvedores ou para empresa? Se sim, qual?
+3.  Qual o ponto principal a ser focado na ferramenta?
+4.  A ferramenta deve ser desenvolvida visando projetos de determinados cursos ou projetos em gerais? Se a primeira, quais?
+5.  Se você fosse o desenvolvedor ou a empresa, você usaria a ferramenta? Por que?
+6.  Quais funcionalidades são essenciais para a ferramenta?
+7.  Você conhece algum produto parecido com este?
+8.  O que os alunos da área de tecnologia sentem mais dificuldade quando vão iniciar um projeto ou um trabalho?
+9.  Como podemos ajudar os desenvovedores a desenvolver o projeto com a ferramenta?
