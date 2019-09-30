@@ -1,0 +1,38 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: rgb(240, 240, 247);
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.sidemenu-app {
+  background-color: #43425d !important;
+} 
+
+.text-white {
+  color: white !important;
+}
+
+.ui.vertical.menu .active.item {
+  background: rgba(0,0,0,.25) !important;
+}
+
+.ui.thin.left.sidebar, .ui.thin.right.sidebar {
+  width: 200px !important;
+}
+
+.row-reverse {
+  flex-direction: row-reverse !important;
+}
+
+.react-datepicker-wrapper {
+  display: block !important;
+}

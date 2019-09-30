@@ -1,0 +1,1 @@
+export const backend = 'http://localhost:10001/api/v1/';
