@@ -4,9 +4,9 @@ import (
 	"database/sql"
 	"encoding/json"
 	"net/http"
-	"projects/back-end/api/db"
-	"projects/back-end/model"
-	"projects/back-end/util"
+	"projects/desenvolvimento/back-end/api/db"
+	"projects/desenvolvimento/back-end/model"
+	"projects/desenvolvimento/back-end/util"
 )
 
 //Login ...

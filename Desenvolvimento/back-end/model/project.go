@@ -26,7 +26,7 @@ type Project struct {
 	AreaProjeto    string         `json:"area_projeto"`
 	DataLimite     string         `json:"data_limite"`
 	Descricao      string         `json:"descricao"`
-	IsFavorite     string         `json:"is_favorite"`
+	IsFavorite     bool           `json:"is_favorite"`
 }
 
 //ProjectFilter struct
@@ -68,23 +68,29 @@ func (p *Project) InsertProject(db *sql.DB) (string, error) {
 }
 
 //GetProject ...
-func (p *Project) GetProject(db *sql.DB, idPessoa int64) error {
+func (p *Project) GetProject(db *sql.DB, idPessoa int) error {
 	var isCompany bool
 	err := db.QueryRow(`SELECT COUNT(*) > 0
 					FROM pessoa pe
 					WHERE pe.id = $1 AND pe.tipo_pessoa = 0`, idPessoa).Scan(&isCompany)
 
 	if isCompany {
-		err := db.QueryRow(`SELECT p.id, p.status, p.dt_cadastro, COALESCE(CAST(p.dt_atualizacao as varchar), '') as dt_atualizacao, 
+		err = db.QueryRow(`SELECT p.status, p.dt_cadastro, COALESCE(CAST(p.dt_atualizacao as varchar), '') as dt_atualizacao, 
 									p.nome, p.id_empresa, pe.apelido, p.palavras_chaves, p.area_projeto, p.data_limite, p.descricao
 						FROM projetos p
-						INNER JOIN 
-						WHERE id =  $1`, p.ID).Scan(&p.Status, &p.DtCadastro, &p.DtAtualizacao)
-		if err != nil {
-			return err
-		}
+						INNER JOIN pessoa pe ON p.id_empresa = pe.id
+						WHERE p.id =  $1`, p.ID).Scan(&p.Status, &p.DtCadastro, &p.DtAtualizacao, &p.Nome, &p.IDEmpresa, &p.Empresa.Nome,
+			&p.PalavrasChaves, &p.AreaProjeto, &p.DataLimite, &p.Descricao)
+		p.Empresa.ID = p.IDEmpresa
 	} else {
-
+		err = db.QueryRow(`SELECT p.status, p.dt_cadastro, COALESCE(CAST(p.dt_atualizacao as varchar), '') as dt_atualizacao, 
+									p.nome, p.id_empresa, pe.apelido, p.palavras_chaves, p.area_projeto, p.data_limite, p.descricao,
+									(SELECT COUNT(*) > 0 FROM meusprojetos mp WHERE mp.id_dev = p.id ) as is_favorite
+							FROM projetos p
+							INNER JOIN pessoa pe ON p.id_empresa = pe.id
+							WHERE p.id = $1`, p.ID).Scan(&p.Status, &p.DtCadastro, &p.DtAtualizacao, &p.Nome, &p.IDEmpresa, &p.Empresa.Nome,
+			&p.PalavrasChaves, &p.AreaProjeto, &p.DataLimite, &p.Descricao, &p.IsFavorite)
+		p.Empresa.ID = p.IDEmpresa
 	}
 
 	return err

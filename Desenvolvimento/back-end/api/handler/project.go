@@ -5,9 +5,9 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
-	"projects/back-end/api/db"
-	"projects/back-end/model"
-	"projects/back-end/util"
+	"projects/desenvolvimento/back-end/api/db"
+	"projects/desenvolvimento/back-end/model"
+	"projects/desenvolvimento/back-end/util"
 	"strconv"
 
 	"github.com/gorilla/mux"
@@ -137,15 +137,15 @@ func GetProject(w http.ResponseWriter, r *http.Request) {
 	err = p.GetProject(db, idPessoa)
 	if err != nil {
 		if err == sql.ErrNoRows {
-			log.Printf("[handler/GetProject -  Nao ha Projeto com este ID.")
-			t.ResponseWithError(w, http.StatusInternalServerError, "Nao ha cidadao com este ID.", err.Error())
+			log.Printf("[handler/GetProject -  Nao ha Projeto com este ID para está pessoa.")
+			t.ResponsePostWithJSON(w, http.StatusOK, nil)
 		} else {
 			log.Printf("[handler/GetProject -  Erro ao tentar buscar Projeto. Erro: %s", err.Error())
 			t.ResponseWithError(w, http.StatusInternalServerError, err.Error(), "")
 		}
 		return
 	}
-	t.ResponseWithJSON(w, http.StatusOK, p, 0, 0)
+	t.ResponsePostWithJSON(w, http.StatusOK, p)
 }
 
 //GetProjectsByCompany ...

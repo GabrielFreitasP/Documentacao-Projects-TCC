@@ -5,9 +5,9 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
-	"projects/back-end/api/db"
-	"projects/back-end/model"
-	"projects/back-end/util"
+	"projects/desenvolvimento/back-end/api/db"
+	"projects/desenvolvimento/back-end/model"
+	"projects/desenvolvimento/back-end/util"
 	"strconv"
 
 	"github.com/gorilla/mux"

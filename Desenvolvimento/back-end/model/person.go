@@ -125,10 +125,6 @@ func (p *Person) GetPerson(db *sql.DB) error {
 					FROM pessoa p
 					WHERE id =  $1`, p.ID).Scan(&p.Status, &p.DtCadastro, &p.DtAtualizacao, &p.TipoPessoa, &p.Nome, &p.Apelido, &p.Email,
 		&p.Telefone, &p.Celular, &p.Facebook, &p.Twitter, &p.Instagram, &p.Linkedin)
-	if err != nil {
-		return err
-	}
-
 	return err
 }
 
