@@ -4,7 +4,7 @@ export const getDate = (dateParam) => {
   if (!dateParam) {
     return null;
   }
-  return moment(dateParam, 'dd/MM/yyyy').toDate();
+  return moment(dateParam, 'DD/MM/YYYY').toDate();
 };
 
 export function assign(obj, prop, value) {

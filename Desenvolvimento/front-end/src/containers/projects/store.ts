@@ -17,7 +17,7 @@ const initialFilter = {
   nome_empresa: '',
   palavras_chave: '',
   area_projeto: '',
-  data: '',
+  data_limite: '',
 }
 
 export default class ProjectsStore {
@@ -31,7 +31,7 @@ export default class ProjectsStore {
     nome_empresa: string;
     palavras_chave: string;
     area_projeto: string;
-    data: string;
+    data_limite: string;
   } = initialFilter;
 
   @observable records: any[] = [];
@@ -67,9 +67,9 @@ export default class ProjectsStore {
     assign(this.filter, id, data ? data.toISOString().split('T')[0].split('-').reverse().join('/') : '');
   }
 
-  @action handleSubmitFilter = () => {
+  @action handleSubmitFilter = (companyId?: number) => {
     this._filter = { ...this.filter };
-    this.getProjects();
+    this.getProjects(companyId);
   }
 
   @action handleSubmit = (id_empresa: number) => {

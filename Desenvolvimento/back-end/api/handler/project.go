@@ -115,7 +115,7 @@ func GetProject(w http.ResponseWriter, r *http.Request) {
 	var p model.Project
 	err := d.Connection()
 	if err != nil {
-		log.Printf("[handler/GetDemanda] -  Erro ao tentar abrir conexao. Erro: %s", err.Error())
+		log.Printf("[handler/GetProject] -  Erro ao tentar abrir conexao. Erro: %s", err.Error())
 		return
 	}
 	db := d.DB
@@ -138,7 +138,7 @@ func GetProject(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		if err == sql.ErrNoRows {
 			log.Printf("[handler/GetProject -  Nao ha Projeto com este ID para está pessoa.")
-			t.ResponsePostWithJSON(w, http.StatusOK, nil)
+			t.ResponseWithError(w, http.StatusNotFound, "Nao ha projeto com este id.", err.Error())
 		} else {
 			log.Printf("[handler/GetProject -  Erro ao tentar buscar Projeto. Erro: %s", err.Error())
 			t.ResponseWithError(w, http.StatusInternalServerError, err.Error(), "")
@@ -155,7 +155,7 @@ func GetProjectsByCompany(w http.ResponseWriter, r *http.Request) {
 	var d db.DB
 	err := d.Connection()
 	if err != nil {
-		log.Printf("[handler/GetDemanda] -  Erro ao tentar abrir conexao. Erro: %s", err.Error())
+		log.Printf("[handler/GetProjectsByCompany] -  Erro ao tentar abrir conexao. Erro: %s", err.Error())
 		return
 	}
 	db := d.DB
@@ -177,7 +177,7 @@ func GetProjectsByCompany(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		if err == sql.ErrNoRows {
 			log.Printf("[handler/GetProjects -  Nao ha Projeto com este filtro.")
-			t.ResponseWithError(w, http.StatusInternalServerError, "Nao ha Projetos cadastrados.", err.Error())
+			t.ResponseWithJSON(w, http.StatusOK, []model.Project{}, 0, 0)
 		} else {
 			log.Printf("[handler/GetProjects -  Erro ao tentar buscar Projeto. Erro: %s", err.Error())
 			t.ResponseWithError(w, http.StatusInternalServerError, err.Error(), "")
@@ -194,7 +194,7 @@ func GetProjects(w http.ResponseWriter, r *http.Request) {
 	var d db.DB
 	err := d.Connection()
 	if err != nil {
-		log.Printf("[handler/GetDemandas] -  Erro ao tentar abrir conexao. Erro: %s", err.Error())
+		log.Printf("[handler/GetProjects] -  Erro ao tentar abrir conexao. Erro: %s", err.Error())
 		return
 	}
 	db := d.DB
@@ -213,6 +213,40 @@ func GetProjects(w http.ResponseWriter, r *http.Request) {
 			t.ResponseWithJSON(w, http.StatusOK, []model.Project{}, 0, 0)
 		} else {
 			log.Printf("[handler/GetProjects -  Erro ao tentar buscar Projeto. Erro: %s", err.Error())
+			t.ResponseWithError(w, http.StatusInternalServerError, "", err.Error())
+		}
+		return
+	}
+	t.ResponseWithJSON(w, http.StatusOK, projects, 0, 0)
+}
+
+//GetMyProjects ...
+func GetMyProjects(w http.ResponseWriter, r *http.Request) {
+	var p model.MyProject
+	var t util.App
+	var d db.DB
+	err := d.Connection()
+	if err != nil {
+		log.Printf("[handler/GetMyProjects] -  Erro ao tentar abrir conexao. Erro: %s", err.Error())
+		return
+	}
+	db := d.DB
+	defer db.Close()
+
+	vars := mux.Vars(r)
+	idDev, err := strconv.Atoi(vars["id_dev"])
+	if err != nil {
+		t.ResponseWithError(w, http.StatusBadRequest, "Invalid id_pessoa", "")
+		return
+	}
+
+	projects, err := p.GetMyProjects(db, idDev)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			log.Printf("[handler/GetMyProjects -  Nao ha Projetos para este usuário.")
+			t.ResponseWithJSON(w, http.StatusOK, []model.Project{}, 0, 0)
+		} else {
+			log.Printf("[handler/GetMyProjects -  Erro ao tentar buscar meus Projeto. Erro: %s", err.Error())
 			t.ResponseWithError(w, http.StatusInternalServerError, "", err.Error())
 		}
 		return

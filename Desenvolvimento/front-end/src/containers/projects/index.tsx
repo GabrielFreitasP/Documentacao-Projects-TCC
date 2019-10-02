@@ -4,14 +4,20 @@ import { inject, observer } from 'mobx-react';
 import ProjectsStore from './store';
 import ListProjects from './list-projects';
 import NewProject from './new-project';
+import NewRouterStore from '../../mobx/router.store';
 
 interface Props {
+  router: NewRouterStore,
   projects: ProjectsStore
 }
 
-@inject('projects')
+@inject('router', 'projects')
 @observer
 export default class Projects extends React.Component<Props> {
+
+  componentWillUnmount() {
+    this.props.projects.showNewProjectScreen = false;
+  }
   
   render() {
     const { 

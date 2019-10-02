@@ -6,6 +6,6 @@ const publicUrl = process.env.PUBLIC_URL;
 
 export const routes: RouteProps[] = [
   { path: `${publicUrl}/home`, component: Home },
-  { path: `${publicUrl}/project/:id`, component: Project },
+  { path: `${publicUrl}/projects/:id`, component: Project },
   { path: `${publicUrl}/projects`, component: Projects },
 ];

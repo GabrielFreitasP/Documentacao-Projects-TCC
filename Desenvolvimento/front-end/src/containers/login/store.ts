@@ -38,6 +38,8 @@ export default class LoginStore {
       throw error;
     }
     finally {
+      this.user_name = "";
+      this.password = "";
       this.isLoading = false;
     }
   }

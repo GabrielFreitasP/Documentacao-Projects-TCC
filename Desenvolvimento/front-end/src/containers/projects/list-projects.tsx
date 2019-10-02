@@ -1,17 +1,24 @@
 import * as React from 'react';
-import { Header, Segment, Form, FormGroup, Button, Grid, Table, Loader, Dimmer } from 'semantic-ui-react';
+import { Header, Segment, Form, FormGroup, Button, Grid, Table, Loader, Dimmer, Icon } from 'semantic-ui-react';
 import { observer } from 'mobx-react';
 import ReactDatePicker from "react-datepicker";
 import ProjectsStore from './store';
 import { getDate } from '../../util';
 import { getUser, TipoPessoa } from '../../util/auth.util';
+import NewRouterStore from '../../mobx/router.store';
 
 interface Props {
+  router: NewRouterStore,
   projects: ProjectsStore
 }
 
 @observer
 export default class ListProjects extends React.Component<Props> {
+
+  update = (id: number) => {
+    const { setHistory } = this.props.router;
+    setHistory(`projects/${id}`);
+  };
   
   componentDidMount() {
     const {
@@ -23,6 +30,19 @@ export default class ListProjects extends React.Component<Props> {
       getProjects(getUser().id_pessoa)
     } else {
       getProjects()
+    }
+  }
+
+  _handleSubmitFilter = () => {
+    const {
+      handleSubmitFilter
+    } = this.props.projects
+    
+    const isCompany = getUser().tipo_pessoa === TipoPessoa.Company;
+    if (isCompany) {
+      handleSubmitFilter(getUser().id_pessoa)
+    } else {
+      handleSubmitFilter()
     }
   }
 
@@ -40,6 +60,10 @@ export default class ListProjects extends React.Component<Props> {
             <Table.Cell>{r.nome}</Table.Cell>
             <Table.Cell>{r.empresa.nome}</Table.Cell>
             <Table.Cell>{r.area_projeto}</Table.Cell>
+            <Table.Cell>{r.data_limite}</Table.Cell>
+            <Table.Cell textAlign='center'>
+              <Icon size={'small'} name='eye' circular link onClick={() => this.update(r.id)} />
+            </Table.Cell>
           </Table.Row>
         ))
       )
@@ -61,7 +85,6 @@ export default class ListProjects extends React.Component<Props> {
       toggleScreen,
       handleChangeFilter,
       handleDateFilter,
-      handleSubmitFilter,
       filter
     } = this.props.projects
 
@@ -110,13 +133,36 @@ export default class ListProjects extends React.Component<Props> {
               </Form.Field>
 
               <Form.Field>
+                <label>Data Limite</label>
+                <ReactDatePicker
+                  id="data"
+                  selected={getDate(filter.data_limite)}
+                  isClearable
+                  value={filter.data_limite}
+                  dateFormat='dd/MM/yyyy'
+                  onChange={(date: any) => handleDateFilter(date, 'data_limite')}
+                  showYearDropdown
+                  showMonthDropdown/>
+              </Form.Field>
+              
+              <Form.Field>
+                <Form.Input
+                  id="area_projeto" 
+                  label='Area projeto'
+                  value={filter.area_projeto}
+                  onChange={handleChangeFilter}/>
+              </Form.Field>
+            </FormGroup>
+            
+            <FormGroup widths="equal">
+              <Form.Field>
                 <Form.Input
                   id="nome_empresa" 
                   label='Nome empresa'
                   value={filter.nome_empresa}
                   onChange={handleChangeFilter}/>
               </Form.Field>
-              
+
               <Form.Field>
                 <Form.Input
                   id="palavras_chave" 
@@ -124,30 +170,6 @@ export default class ListProjects extends React.Component<Props> {
                   value={filter.palavras_chave}
                   onChange={handleChangeFilter}/>
               </Form.Field>
-            </FormGroup>
-            
-            <FormGroup widths="equal">
-              <Form.Field width="8">
-                <Form.Input
-                  id="area_projeto" 
-                  label='Area projeto'
-                  value={filter.area_projeto}
-                  onChange={handleChangeFilter}/>
-              </Form.Field>
-
-              <Form.Field width="3">
-                <label>Data Limite</label>
-                <ReactDatePicker
-                  id="data"
-                  selected={getDate(filter.data)}
-                  isClearable
-                  value={filter.data}
-                  dateFormat='dd/MM/yyyy'
-                  onChange={(date: any) => handleDateFilter(date, 'data')}
-                  showYearDropdown
-                  showMonthDropdown/>
-              </Form.Field>
-              
             </FormGroup>
 
             <Form.Group className='row-reverse'>
@@ -158,7 +180,7 @@ export default class ListProjects extends React.Component<Props> {
                   floated='right'
                   fluid
                   color='blue'
-                  onClick={handleSubmitFilter}
+                  onClick={this._handleSubmitFilter}
                   size='medium'>
                   Filtrar
                 </Button>
@@ -175,6 +197,8 @@ export default class ListProjects extends React.Component<Props> {
                 <Table.HeaderCell>Projeto</Table.HeaderCell>
                 <Table.HeaderCell>Empresa</Table.HeaderCell>
                 <Table.HeaderCell>Area</Table.HeaderCell>
+                <Table.HeaderCell>Data Limite</Table.HeaderCell>
+                <Table.HeaderCell></Table.HeaderCell>
               </Table.Row>
             </Table.Header>
             <Table.Body>

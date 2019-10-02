@@ -36,3 +36,11 @@ code {
 .react-datepicker-wrapper {
   display: block !important;
 }
+
+input:read-only {
+  background-color: rgba(0,0,0,.05) !important;
+}
+
+textarea:read-only {
+  background-color: rgba(0,0,0,.05) !important;
+}

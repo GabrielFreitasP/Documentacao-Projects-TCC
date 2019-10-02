@@ -28,7 +28,7 @@ export default class HeaderMenu extends React.Component<Props> {
                 <Menu.Menu position='right'>
                     <Dropdown text={getUserName()} pointing className='link item'>
                         <Dropdown.Menu>
-                            <Dropdown.Item onClick={this.logout}>Logout</Dropdown.Item>
+                            <Dropdown.Item onClick={this.logout}>Sair</Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown>
                     <Image src={user} avatar style={{ margin: 'auto', marginRight: 20 }}/>

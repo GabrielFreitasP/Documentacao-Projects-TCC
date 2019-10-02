@@ -43,6 +43,8 @@ func (a *App) StartServer() {
 	// developer
 	s.HandleFunc("/project", handler.GetProjects).Methods(http.MethodGet)
 	s.HandleFunc("/project/{id:[0-9]+}/person/{id_pessoa:[0-9]+}", handler.GetProject).Methods(http.MethodGet)
+	// s.HandleFunc("/meusprojetos", handler.).Methods(http.MethodPost)
+	s.HandleFunc("/meusprojetos/{id_dev:[0-9]+}", handler.GetMyProjects).Methods(http.MethodGet)
 
 	// company
 	s.HandleFunc("/project", handler.InsertProject).Methods(http.MethodPost)
