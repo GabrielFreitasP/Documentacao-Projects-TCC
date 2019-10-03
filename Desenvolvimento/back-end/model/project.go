@@ -40,24 +40,24 @@ type ProjectFilter struct {
 
 // MyProject struct
 type MyProject struct {
-	IDDev    int64 `json:"id_dev"`
-	IDPessoa int64 `json:"id_pessoa"`
+	IDDev     int64 `json:"id_dev"`
+	IDProjeto int64 `json:"id_projeto"`
 }
 
 //InsertProject ...
 func (p *Project) InsertProject(db *sql.DB) (string, error) {
 	dateNow := time.Now()
 
-	// verify user_name exist
+	// verify company exist
 	count := 0
 	err := db.QueryRow(`SELECT COUNT(*)
-					FROM usuario
-					WHERE user_name = $1`, p.IDEmpresa).Scan(&count)
+					FROM pessoa
+					WHERE id = $1 AND tipo_pessoa = 0`, p.IDEmpresa).Scan(&count)
 	if err != nil {
 		return "", err
 	}
-	if count > 0 {
-		return "Id Empresa não encontrado", nil
+	if count <= 0 {
+		return "Empresa não encontrada", nil
 	}
 	// create pessoa
 	statement, err := db.Prepare(`INSERT INTO projetos(id, status, dt_cadastro, nome, id_empresa, palavras_chaves, area_projeto, data_limite, descricao)
@@ -71,6 +71,28 @@ func (p *Project) InsertProject(db *sql.DB) (string, error) {
 		return "", err
 	}
 	return "", nil
+}
+
+//UpdateProject ...
+func (p *Project) UpdateProject(db *sql.DB) error {
+	dateNow := time.Now()
+	statement, err := db.Prepare(`UPDATE projetos
+									 SET dt_atualizacao=$1, 
+										 nome=$2, 
+										 palavras_chaves=$3, 
+										 area_projeto=$4, 
+										 data_limite=$5, 
+										 descricao=$6
+								   WHERE id=$7 AND id_empresa=$8
+								RETURNING status, dt_cadastro, dt_atualizacao, (SELECT apelido FROM pessoa WHERE id = 1);`)
+
+	if err != nil {
+		return err
+	}
+
+	err = statement.QueryRow(dateNow, p.Nome, p.PalavrasChaves, p.AreaProjeto, p.DataLimite, p.Descricao, p.ID, p.IDEmpresa).Scan(&p.Status, &p.DtCadastro, &p.DtAtualizacao, &p.Empresa.Nome)
+	p.Empresa.ID = p.IDEmpresa
+	return err
 }
 
 //GetProject ...
@@ -130,9 +152,10 @@ func (p *ProjectFilter) GetProjectsByCompany(db *sql.DB, IDEmpresa int) ([]Proje
 
 	rows, err := db.Query(`SELECT p.id, p.status, p.dt_cadastro, COALESCE(CAST(p.dt_atualizacao as varchar), '') as dt_atualizacao, 
 									p.nome, p.id_empresa, pe.apelido, p.palavras_chaves, p.area_projeto, p.data_limite, p.descricao
-					FROM projetos p
-					INNER JOIN pessoa pe ON p.id_empresa = pe.id AND pe.tipo_pessoa = 0
-					WHERE p.status = 1 AND `+strings.Join(where, " AND "), values...)
+							FROM projetos p
+							INNER JOIN pessoa pe ON p.id_empresa = pe.id AND pe.tipo_pessoa = 0
+							WHERE p.status = 1 AND `+strings.Join(where, " AND ")+`
+							ORDER BY p.id`, values...)
 	if err != nil {
 		return nil, err
 	}
@@ -193,7 +216,8 @@ func (p *ProjectFilter) GetProjects(db *sql.DB) ([]Project, error) {
 									p.nome, p.id_empresa, pe.apelido, p.palavras_chaves, p.area_projeto, p.data_limite, p.descricao
 					FROM projetos p
 					INNER JOIN pessoa pe ON p.id_empresa = pe.id AND pe.tipo_pessoa = 0
-					WHERE p.status = 1`+and+strings.Join(where, " AND "), values...)
+					WHERE p.status = 1`+and+strings.Join(where, " AND ")+`
+					ORDER BY p.id`, values...)
 	if err != nil {
 		return nil, err
 	}
@@ -214,14 +238,47 @@ func (p *ProjectFilter) GetProjects(db *sql.DB) ([]Project, error) {
 	return projects, nil
 }
 
+//InsertMyProject ...
+func (p *MyProject) InsertMyProject(db *sql.DB) (string, error) {
+	dateNow := time.Now()
+
+	// verify user_name exist
+	count := 0
+	err := db.QueryRow(`SELECT COUNT(*)
+					FROM pessoa
+					WHERE id = $1 AND tipo_pessoa = 1`, p.IDDev).Scan(&count)
+	if err != nil {
+		return "", err
+	}
+	if count > 0 {
+		return "Id Dev não encontrado", nil
+	}
+	// add to my projects
+	statement, err := db.Prepare(`INSERT INTO meusprojetos(id_projeto, id_dev, status, dt_cadastro)
+								VALUES ($1, $2, DEFAULT, $3)
+								ON CONFLICT (id_projeto, id_dev)
+								DO 
+									UPDATE
+										SET status = 1, dt_atualizacao = $3;`)
+	if err != nil {
+		return "", err
+	}
+	_, err = statement.Exec(p.IDProjeto, p.IDDev, dateNow)
+	if err != nil {
+		return "", err
+	}
+	return "", nil
+}
+
 // GetMyProjects ...
 func (p *MyProject) GetMyProjects(db *sql.DB, idDev int) ([]Project, error) {
 	rows, err := db.Query(`SELECT p.id, p.status, p.dt_cadastro, COALESCE(CAST(p.dt_atualizacao as varchar), '') as dt_atualizacao, 
 									p.nome, p.id_empresa, pe.apelido, p.palavras_chaves, p.area_projeto, p.data_limite, p.descricao
 					FROM projetos p
 					INNER JOIN meusprojetos mp ON mp.id_projeto = p.id AND mp.id_dev = $1
-					INNER JOIN pessoa pe ON p.id_empresa = pe.id AND pe.tipo_pessoa = 0
-					WHERE p.status = 1 `, idDev)
+					INNER JOIN pessoa pe ON p.id_empresa = pe.id AND pe.tipo_pessoa = 1
+					WHERE p.status = 1
+					ORDER BY p.id`, idDev)
 	if err != nil {
 		return nil, err
 	}

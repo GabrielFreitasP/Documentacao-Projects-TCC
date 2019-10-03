@@ -39,7 +39,7 @@ func InsertProject(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	if msg != "" {
-		t.ResponseWithError(w, http.StatusOK, "Erro ao inserir Pessoa", msg)
+		t.ResponseWithError(w, http.StatusOK, "Erro ao inserir Projeto", msg)
 		return
 	}
 	t.ResponsePostWithJSON(w, http.StatusOK, p)
@@ -72,11 +72,11 @@ func UpdateProject(w http.ResponseWriter, r *http.Request) {
 	}
 	defer r.Body.Close()
 	p.ID = int64(id)
-	// if err := p.UpdateProject(db); err != nil {
-	// 	t.ResponseWithError(w, http.StatusInternalServerError, err.Error(), "")
-	// 	return
-	// }
-	t.ResponseWithJSON(w, http.StatusOK, p, 0, 0)
+	if err := p.UpdateProject(db); err != nil {
+		t.ResponseWithError(w, http.StatusInternalServerError, err.Error(), "")
+		return
+	}
+	t.ResponsePostWithJSON(w, http.StatusOK, p)
 }
 
 //DeleteProject ...
@@ -218,6 +218,37 @@ func GetProjects(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	t.ResponseWithJSON(w, http.StatusOK, projects, 0, 0)
+}
+
+//InsertMyProject ...
+func InsertMyProject(w http.ResponseWriter, r *http.Request) {
+	var p model.MyProject
+	var t util.App
+	var d db.DB
+	err := d.Connection()
+	if err != nil {
+		log.Printf("[handler/InsertMyProjects] -  Erro ao tentar abrir conexao. Erro: %s", err.Error())
+		return
+	}
+	db := d.DB
+	defer db.Close()
+
+	decoder := json.NewDecoder(r.Body)
+	if err := decoder.Decode(&p); err != nil {
+		t.ResponseWithError(w, http.StatusBadRequest, "Invalid request payload", err.Error())
+		return
+	}
+	defer r.Body.Close()
+	msg, err := p.InsertMyProject(db)
+	if err != nil {
+		t.ResponseWithError(w, http.StatusBadRequest, "Erro ao adicionar aos meus projetos", err.Error())
+		return
+	}
+	if msg != "" {
+		t.ResponseWithError(w, http.StatusBadRequest, "Erro ao adicionar aos meus projetos", msg)
+		return
+	}
+	t.ResponsePostWithJSON(w, http.StatusOK, p)
 }
 
 //GetMyProjects ...

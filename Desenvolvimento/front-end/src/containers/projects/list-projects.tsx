@@ -27,9 +27,9 @@ export default class ListProjects extends React.Component<Props> {
     
     const isCompany = getUser().tipo_pessoa === TipoPessoa.Company;
     if (isCompany) {
-      getProjects(getUser().id_pessoa)
+      getProjects(getUser().id_pessoa);
     } else {
-      getProjects()
+      getProjects();
     }
   }
 

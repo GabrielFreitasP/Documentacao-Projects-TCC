@@ -48,6 +48,12 @@ func (a *App) ResponsePostWithJSON(w http.ResponseWriter, code int, payload inte
 	w.Write(response)
 }
 
+//ResponseNoContent corresponde
+func (a *App) ResponseNoContent(w http.ResponseWriter, code int) {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(code)
+}
+
 func responseWithError(w http.ResponseWriter, code int, payload interface{}) {
 	response, _ := json.Marshal(payload)
 	w.Header().Set("Content-Type", "application/json")

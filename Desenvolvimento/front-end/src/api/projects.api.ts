@@ -5,6 +5,10 @@ export const postProject = (data: any) => {
     return axios.request({ method: 'post', baseURL: backend, url: `/project`, data });
 };
 
+export const putProject = (data: any,) => {
+    return axios.request({ method: 'put', baseURL: backend, url: `/project/${data.id}`, data });
+};
+
 export const getProjects = (params: any, companyId?: number) => {
     if (companyId) {
         return axios.request({ method: 'get', baseURL: backend, url: `/project/company/${companyId}`, params });

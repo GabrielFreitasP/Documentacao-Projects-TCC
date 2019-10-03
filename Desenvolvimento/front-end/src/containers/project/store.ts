@@ -1,7 +1,8 @@
 import { action, observable } from 'mobx';
 import { ProjectInterface } from '../../interfaces/project.interface';
 import { assign } from '../../util';
-import { getProject } from '../../api/projects.api';
+import { getProject, putProject } from '../../api/projects.api';
+import { error } from '../../components/notifications';
 
 const initialProject = {
   id: 0,
@@ -40,10 +41,24 @@ export default class ProjectStore {
       const { data } = await getProject(id_project, id_person)
       this.project = data;
     } catch(err) {
-        console.error(err);
-        throw err;
+      console.error(err);
+      throw err;
+    } finally {
+      this.isLoading = false;
     }
-    this.isLoading = false;
+  }
+
+  @action saveProject = async () => {
+    this.isLoading = true;
+    try {
+      await putProject({ ...this.project });
+    } catch(err) {
+      error("Falha ao salvar projeto!");
+      console.error(err);
+      throw err;
+    } finally {
+      this.isLoading = false;
+    }
   }
 
 }

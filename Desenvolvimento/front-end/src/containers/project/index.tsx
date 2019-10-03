@@ -22,11 +22,16 @@ export default class Project extends React.Component<RouteComponentProps<{ id: s
         setHistory(`projects`);
     };
 
+    handleSubmit = async (e: any) => {
+        e.preventDefault();
+        const { saveProject } = this.props.project;
+        await saveProject();
+        this.list();
+    }
+
     async componentDidMount() {
         try {
-            const {
-                getProject
-            } = this.props.project;
+            const { getProject } = this.props.project;
             const id = Number(this.props.match.params.id);
             const id_person = getUser().id_pessoa;
             await getProject(id, id_person);
@@ -43,9 +48,9 @@ export default class Project extends React.Component<RouteComponentProps<{ id: s
             isLoading,
             isEditing,
             setEdit
-        } = this.props.project
+        } = this.props.project;
         
-        const isCompany = getUser().tipo_pessoa == 0;
+        const isCompany = getUser().tipo_pessoa === 0;
 
         return (
             <Container style={{ padding: 20 }}>
@@ -53,7 +58,7 @@ export default class Project extends React.Component<RouteComponentProps<{ id: s
                     Projetos
                 </Header>
                 <Segment>
-                    <Form loading={isLoading && !isEditing}>
+                    <Form loading={isLoading && !isEditing} onSubmit={this.handleSubmit}>
                         <Form.Group style={{ flexDirection: 'row-reverse' }}>
                             <Form.Field>
                                 {
@@ -138,7 +143,7 @@ export default class Project extends React.Component<RouteComponentProps<{ id: s
                                             <Button.Group>
                                                 <Button onClick={() => setEdit(false)}>Cancelar</Button>
                                                 <Button.Or text='ou' />
-                                                <Button positive type='submit' loading={isLoading} onClick={() => {}}>Salvar</Button>
+                                                <Button positive type='submit' loading={isLoading}>Salvar</Button>
                                             </Button.Group>
                                         )
                                 }
