@@ -305,12 +305,12 @@ func (p *MyProject) RemoveMyProject(db *sql.DB) (string, error) {
 // GetMyProjects ...
 func (p *MyProject) GetMyProjects(db *sql.DB, idDev int) ([]Project, error) {
 	rows, err := db.Query(`SELECT p.id, p.status, p.dt_cadastro, COALESCE(CAST(p.dt_atualizacao as varchar), '') as dt_atualizacao, 
-									p.nome, p.id_empresa, pe.apelido, p.palavras_chaves, p.area_projeto, p.data_limite, p.descricao
-					FROM projetos p
-					INNER JOIN meusprojetos mp ON mp.id_projeto = p.id AND mp.id_dev = $1
-					INNER JOIN pessoa pe ON p.id_empresa = pe.id AND pe.tipo_pessoa = 1
-					WHERE p.status = 1
-					ORDER BY p.id`, idDev)
+							p.nome, p.id_empresa, pe.apelido, p.palavras_chaves, p.area_projeto, p.data_limite, p.descricao
+						FROM meusprojetos mp
+						INNER JOIN projetos p ON mp.id_projeto = p.id
+						INNER JOIN pessoa pe ON p.id_empresa = pe.id AND pe.tipo_pessoa = 0
+						WHERE mp.id_dev = $1 AND p.status = 1 AND mp.status = 1
+						ORDER BY p.id`, idDev)
 	if err != nil {
 		return nil, err
 	}
@@ -324,6 +324,7 @@ func (p *MyProject) GetMyProjects(db *sql.DB, idDev int) ([]Project, error) {
 			&project.PalavrasChaves, &project.AreaProjeto, &project.DataLimite, &project.Descricao); err != nil {
 			return nil, err
 		}
+		project.IsFavorite = true
 		project.Empresa.ID = project.IDEmpresa
 		project.Empresa.Nome = nomeEmpresa
 		projects = append(projects, project)
