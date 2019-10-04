@@ -52,6 +52,7 @@ export default class ProjectStore {
     this.isLoading = true;
     try {
       await putProject({ ...this.project });
+      this.isEditing = false;
     } catch(err) {
       error("Falha ao salvar projeto!");
       console.error(err);

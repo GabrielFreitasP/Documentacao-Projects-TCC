@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
-import { Container, Header, Segment, Form, Button, Icon } from 'semantic-ui-react';
+import { Container, Header, Segment, Form, Button, Grid, Icon } from 'semantic-ui-react';
 import { inject, observer } from 'mobx-react';
 import ProjectStore from './store';
 import ReactDatePicker from "react-datepicker";
@@ -64,21 +64,18 @@ export default class Project extends React.Component<RouteComponentProps<{ id: s
                     Projetos
                 </Header>
                 <Segment>
-                    <Form loading={isLoading && !isEditing} onSubmit={this.handleSubmit}>
-                        <Form.Group style={{ flexDirection: 'row-reverse' }}>
-                            <Form.Field>
-                                {
-                                    !isCompany ? 
-                                        (<Icon size="big" name={project.is_favorite ? 'heart' : 'heart outline'} link onClick={this.handleFavorite} />)
-                                        :
-                                        isEditing ?
-                                            (<Button primary disabled>Editando</Button>)
-                                            :
-                                            (<Button primary onClick={() => setEdit(true)}>Editar</Button>)
-                                }
-                            </Form.Field>
-                        </Form.Group>
-                        
+                    <Grid style={{ marginBottom: 5 }}>
+                        <Grid.Row style={{ justifyContent: 'space-between' }}>
+                            <Grid.Column width="8">
+                                <Header as='h2'>
+                                    {
+                                        isEditing ? 'Editar' : 'Visualizar'
+                                    }
+                                </Header>
+                            </Grid.Column>
+                        </Grid.Row>
+                    </Grid>
+                    <Form loading={isLoading && !isEditing}>                        
                         <Form.Group widths='equal'>
                             <Form.Field>
                                 <Form.Input
@@ -138,19 +135,35 @@ export default class Project extends React.Component<RouteComponentProps<{ id: s
                         <Form.Group style={{ flexDirection: 'row-reverse' }}>
                             <Form.Field>
                                 {
-                                    !isEditing || !isCompany ?
-                                        (
-                                            <Button onClick={this.list}>Voltar</Button>
-                                        )
+                                    !isCompany ?
+                                        project.is_favorite ? 
+                                            (<Button color={'green'} onClick={this.handleFavorite}>
+                                                <Icon name='add' />
+                                                Adicionar ao Meus Projetos
+                                            </Button>)
+                                            :
+                                            (<Button color={'red'} onClick={this.handleFavorite}>
+                                                <Icon name='delete' />
+                                                Remover dos Meus Projetos
+                                            </Button>)                                        
                                         :
-                                        (
-                                            <Button.Group>
-                                                <Button type='button' onClick={() => { setEdit(false); this.list(); }}>Cancelar</Button>
-                                                <Button positive type='submit' loading={isLoading}>Salvar</Button>
-                                            </Button.Group>
-                                        )
+                                        isEditing ?
+                                            (<Button positive loading={isLoading} onClick={this.handleSubmit}>
+                                                <Icon name='check' />
+                                                Salvar
+                                            </Button>)
+                                            :
+                                            (<Button primary onClick={() => setEdit(true)}>
+                                                <Icon name='pencil' />
+                                                Habilitar Edição
+                                            </Button>)
+                                       
                                 }
                             </Form.Field>
+                            <Button onClick={() => { setEdit(false); this.list(); }}>
+                                <Icon name='arrow left' />
+                                Voltar
+                            </Button>
                         </Form.Group>
                     </Form>
                 </Segment>

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import MenuStore from './store';
-import { Menu, Sidebar } from 'semantic-ui-react';
+import { Menu, Sidebar, Icon } from 'semantic-ui-react';
 import { inject, observer } from 'mobx-react';
 import NewRouterStore from '../../mobx/router.store';
 
@@ -57,7 +57,19 @@ export default class MainMenu extends React.Component<Props> {
               url='home'
               className={'text-white'}
               onClick={this.handleItemClick}>
-              Home
+                <Icon name='home'/>
+                Início
+            </Menu.Item>
+
+            <Menu.Item
+              id='my-projects-menu'
+              name='my_projects'
+              active={activated === 'my_projects'}
+              url='my_projects'
+              className={'text-white'}
+              onClick={this.handleItemClick}>
+                <Icon name='clipboard'/>
+                Meus Projetos
             </Menu.Item>
 
             <Menu.Item
@@ -67,7 +79,8 @@ export default class MainMenu extends React.Component<Props> {
               url='projects'
               className={'text-white'}
               onClick={this.handleItemClick}>
-              Projetos
+                <Icon name='sticky note'/>
+                Projetos
             </Menu.Item>
         </Sidebar>
       </>

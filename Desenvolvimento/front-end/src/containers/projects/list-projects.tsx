@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Header, Segment, Form, FormGroup, Button, Grid, Table, Loader, Dimmer, Icon } from 'semantic-ui-react';
+import { Header, Segment, Form, FormGroup, Button, Grid, Table, Loader, Dimmer, Menu, Icon } from 'semantic-ui-react';
 import { observer } from 'mobx-react';
 import ReactDatePicker from "react-datepicker";
 import ProjectsStore from './store';
@@ -19,12 +19,12 @@ export default class ListProjects extends React.Component<Props> {
     const { setHistory } = this.props.router;
     setHistory(`projects/${id}`);
   };
-  
+
   componentDidMount() {
     const {
       getProjects
     } = this.props.projects
-    
+
     const isCompany = getUser().tipo_pessoa === TipoPessoa.Company;
     if (isCompany) {
       getProjects(getUser().id_pessoa);
@@ -37,7 +37,7 @@ export default class ListProjects extends React.Component<Props> {
     const {
       handleSubmitFilter
     } = this.props.projects
-    
+
     const isCompany = getUser().tipo_pessoa === TipoPessoa.Company;
     if (isCompany) {
       handleSubmitFilter(getUser().id_pessoa)
@@ -62,7 +62,16 @@ export default class ListProjects extends React.Component<Props> {
             <Table.Cell>{r.area_projeto}</Table.Cell>
             <Table.Cell>{r.data_limite}</Table.Cell>
             <Table.Cell textAlign='center'>
-              <Icon size={'small'} name='eye' circular link onClick={() => this.update(r.id)} />
+              <Button
+                title="Novo"
+                type='submit'
+                floated='right'
+                color='blue'
+                size='medium'
+                onClick={() => this.update(r.id)}>
+                  <Icon name='file text outline' />
+                  Visualizar
+              </Button>              
             </Table.Cell>
           </Table.Row>
         ))
@@ -103,33 +112,16 @@ export default class ListProjects extends React.Component<Props> {
                   Filtro
                 </Header>
               </Grid.Column>
-              <Grid.Column width="8">
-                {
-                  isCompany ? (
-                      <Button
-                        title="Novo"
-                        type='submit'
-                        floated='right'
-                        color='green'
-                        size='medium'
-                        onClick={toggleScreen}>
-                        Novo
-                      </Button>
-                    ) : (
-                      <></>
-                    )
-                }
-              </Grid.Column>
             </Grid.Row>
           </Grid>
           <Form>
             <FormGroup widths='equal'>
               <Form.Field>
                 <Form.Input
-                  id="nome_projeto" 
+                  id="nome_projeto"
                   label='Nome projeto'
                   value={filter.nome_projeto}
-                  onChange={handleChangeFilter}/>
+                  onChange={handleChangeFilter} />
               </Form.Field>
 
               <Form.Field>
@@ -142,68 +134,101 @@ export default class ListProjects extends React.Component<Props> {
                   dateFormat='dd/MM/yyyy'
                   onChange={(date: any) => handleDateFilter(date, 'data_limite')}
                   showYearDropdown
-                  showMonthDropdown/>
+                  showMonthDropdown />
               </Form.Field>
-              
+
               <Form.Field>
                 <Form.Input
-                  id="area_projeto" 
+                  id="area_projeto"
                   label='Area projeto'
                   value={filter.area_projeto}
-                  onChange={handleChangeFilter}/>
+                  onChange={handleChangeFilter} />
               </Form.Field>
             </FormGroup>
-            
+
             <FormGroup widths="equal">
               <Form.Field>
                 <Form.Input
-                  id="nome_empresa" 
+                  id="nome_empresa"
                   label='Nome empresa'
                   value={filter.nome_empresa}
-                  onChange={handleChangeFilter}/>
+                  onChange={handleChangeFilter} />
               </Form.Field>
 
               <Form.Field>
                 <Form.Input
-                  id="palavras_chave" 
+                  id="palavras_chave"
                   label='Palavras chave'
                   value={filter.palavras_chave}
-                  onChange={handleChangeFilter}/>
+                  onChange={handleChangeFilter} />
               </Form.Field>
             </FormGroup>
 
-            <Form.Group className='row-reverse'>
-              <Form.Field className='no-label' width="3">
+            <Form.Group className='row-reverse' style={{ marginTop: 30, marginBottom: 30 }}>
+              <Form.Field className='no-label' width="2">
                 <Button
                   title="Pesquisar"
                   type='submit'
-                  floated='right'
+                  floated='right'                  
                   fluid
-                  color='blue'
+                  primary
                   onClick={this._handleSubmitFilter}
                   size='medium'>
-                  Filtrar
-                </Button>
+                    <Icon name='search' />
+                    Filtrar
+                  </Button>
+
               </Form.Field>
+              {
+                isCompany ? (
+                  <Button
+                    title="Novo"
+                    type='submit'
+                    floated='right'
+                    color='green'
+                    size='medium'
+                    onClick={toggleScreen}>
+                      <Icon name='add' />
+                      Novo Projeto
+                  </Button>
+                ) : (
+                  <></>
+                )
+              }
             </Form.Group>
           </Form>
-        </Segment>
 
-        <Segment>
-          <Table celled selectable>
+          <Table selectable striped>
             <Table.Header>
               <Table.Row>
                 <Table.HeaderCell>#</Table.HeaderCell>
-                <Table.HeaderCell>Projeto</Table.HeaderCell>
-                <Table.HeaderCell>Empresa</Table.HeaderCell>
-                <Table.HeaderCell>Area</Table.HeaderCell>
-                <Table.HeaderCell>Data Limite</Table.HeaderCell>
+                <Table.HeaderCell>NOME</Table.HeaderCell>
+                <Table.HeaderCell>EMPRESA</Table.HeaderCell>
+                <Table.HeaderCell>ÁREA</Table.HeaderCell>
+                <Table.HeaderCell>DATA LIMITE</Table.HeaderCell>
                 <Table.HeaderCell></Table.HeaderCell>
               </Table.Row>
             </Table.Header>
+
             <Table.Body>
               {this._renderRows()}
             </Table.Body>
+
+            <Table.Footer>
+              <Table.Row>
+                <Table.HeaderCell colSpan='6'>
+                  <Menu floated='right' pagination>
+                    <Menu.Item as='a' icon>
+                      <Icon name='chevron left' />
+                    </Menu.Item>
+                    <Menu.Item as='a' active>1</Menu.Item>
+                    <Menu.Item as='a' icon>
+                      <Icon name='chevron right' />
+                    </Menu.Item>
+                  </Menu>
+                </Table.HeaderCell>
+              </Table.Row>
+            </Table.Footer>
           </Table>
         </Segment>
       </>

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Form, FormGroup, Button, Header, Segment } from 'semantic-ui-react';
+import { Form, FormGroup, Button, Header, Segment, Icon } from 'semantic-ui-react';
 import { observer } from 'mobx-react';
 import ProjectsStore from './store';
 import ReactDatePicker from "react-datepicker";
@@ -91,12 +91,15 @@ export default class NewProject extends React.Component<Props>{
 
                         <Form.Group style={{ flexDirection: 'row-reverse' }}>
                             <Form.Field>
-                                <Button.Group>
-                                    <Button onClick={toggleScreen}>Cancelar</Button>
-                                    <Button.Or text='ou' />
-                                    <Button positive type='submit' loading={isLoading} onClick={this.handleSubmit}>Salvar</Button>
-                                </Button.Group>
+                                <Button positive type='submit' loading={isLoading} onClick={this.handleSubmit}>
+                                    <Icon name='check' />
+                                    Salvar
+                                </Button>
                             </Form.Field>
+                            <Button onClick={toggleScreen}>
+                                <Icon name='arrow left' />
+                                Voltar
+                            </Button>
                         </Form.Group>
                     </Form>
                 </Segment>
