@@ -96,7 +96,7 @@ export default class NewProject extends React.Component<Props>{
                                     Salvar
                                 </Button>
                             </Form.Field>
-                            <Button onClick={toggleScreen}>
+                            <Button basic onClick={toggleScreen}>
                                 <Icon name='arrow left' />
                                 Voltar
                             </Button>

@@ -160,7 +160,7 @@ export default class Project extends React.Component<RouteComponentProps<{ id: s
                                        
                                 }
                             </Form.Field>
-                            <Button onClick={() => { setEdit(false); this.list(); }}>
+                            <Button basic onClick={() => { setEdit(false); this.list(); }}>
                                 <Icon name='arrow left' />
                                 Voltar
                             </Button>

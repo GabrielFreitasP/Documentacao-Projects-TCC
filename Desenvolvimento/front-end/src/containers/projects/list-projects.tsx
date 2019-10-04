@@ -63,7 +63,7 @@ export default class ListProjects extends React.Component<Props> {
             <Table.Cell>{r.data_limite}</Table.Cell>
             <Table.Cell textAlign='center'>
               <Button
-                title="Novo"
+                title="Visualizar"
                 type='submit'
                 floated='right'
                 color='blue'
@@ -167,7 +167,7 @@ export default class ListProjects extends React.Component<Props> {
             <Form.Group className='row-reverse' style={{ marginTop: 30, marginBottom: 30 }}>
               <Form.Field className='no-label' width="2">
                 <Button
-                  title="Pesquisar"
+                  title="Filtrar"
                   type='submit'
                   floated='right'                  
                   fluid
@@ -182,7 +182,7 @@ export default class ListProjects extends React.Component<Props> {
               {
                 isCompany ? (
                   <Button
-                    title="Novo"
+                    title="Novo Projeto"
                     type='submit'
                     floated='right'
                     color='green'
