@@ -148,18 +148,31 @@ export default class Project extends React.Component<RouteComponentProps<{ id: s
                                             </Button>)                                        
                                         :
                                         isEditing ?
-                                            (<Button positive loading={isLoading} onClick={this.handleSubmit}>
-                                                <Icon name='check' />
-                                                Salvar
-                                            </Button>)
+                                            (<>
+                                                <Button color='red' loading={isLoading} style={{marginRight: 10}}>
+                                                    <Icon name='trash' />
+                                                    Excluir
+                                                </Button>
+                                                <Button positive loading={isLoading} onClick={this.handleSubmit}>
+                                                    <Icon name='check' />
+                                                    Salvar
+                                                </Button>
+                                            </>)
                                             :
-                                            (<Button primary onClick={() => setEdit(true)}>
-                                                <Icon name='pencil' />
-                                                Habilitar Edição
-                                            </Button>)
+                                            (<>
+                                                <Button color='red' loading={isLoading} style={{marginRight: 10}}>
+                                                    <Icon name='trash' />
+                                                    Excluir
+                                                </Button>
+                                                <Button primary onClick={() => setEdit(true)}>
+                                                    <Icon name='pencil' />
+                                                    Habilitar Edição
+                                                </Button>
+                                            </>)
                                        
                                 }
                             </Form.Field>
+                            
                             <Button basic onClick={() => { setEdit(false); this.list(); }}>
                                 <Icon name='arrow left' />
                                 Voltar
