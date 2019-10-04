@@ -1,7 +1,7 @@
 import { action, observable } from 'mobx';
 import { ProjectInterface } from '../../interfaces/project.interface';
 import { assign } from '../../util';
-import { getProject, putProject } from '../../api/projects.api';
+import { getProject, putProject, postMyProject } from '../../api/projects.api';
 import { error } from '../../components/notifications';
 
 const initialProject = {
@@ -54,6 +54,23 @@ export default class ProjectStore {
       await putProject({ ...this.project });
     } catch(err) {
       error("Falha ao salvar projeto!");
+      console.error(err);
+      throw err;
+    } finally {
+      this.isLoading = false;
+    }
+  }
+
+  @action postMyProject = async (id_dev: number) => {
+    this.isLoading = true;
+    if (!this.project.id) {
+      throw 'Id do projeto nao encontrado';
+    }
+    try {
+      await postMyProject(this.project.id, id_dev, this.project.is_favorite);
+      this.project.is_favorite = !this.project.is_favorite;
+    } catch(err) {
+      error("Falha ao adicionar aos meus projetos!");
       console.error(err);
       throw err;
     } finally {

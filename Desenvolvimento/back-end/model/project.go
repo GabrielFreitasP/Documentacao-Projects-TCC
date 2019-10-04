@@ -110,7 +110,7 @@ func (p *Project) GetProject(db *sql.DB, idPessoa int) error {
 		p.Empresa.ID = p.IDEmpresa
 	} else {
 		err = db.QueryRow(`SELECT p.nome, p.id_empresa, pe.apelido, p.palavras_chaves, p.area_projeto, p.data_limite, p.descricao,
-									(SELECT COUNT(*) > 0 FROM meusprojetos mp WHERE mp.id_dev = p.id ) as is_favorite
+									(SELECT COUNT(*) > 0 FROM meusprojetos mp WHERE mp.id_dev = p.id AND mp.status = 1 ) as is_favorite
 						FROM projetos p
 						INNER JOIN pessoa pe ON p.id_empresa = pe.id
 						WHERE p.id = $1`, p.ID).Scan(&p.Nome, &p.IDEmpresa, &p.Empresa.Nome, &p.PalavrasChaves, &p.AreaProjeto, &p.DataLimite, &p.Descricao, &p.IsFavorite)
@@ -250,7 +250,7 @@ func (p *MyProject) InsertMyProject(db *sql.DB) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	if count > 0 {
+	if count <= 0 {
 		return "Id Dev não encontrado", nil
 	}
 	// add to my projects
@@ -260,6 +260,36 @@ func (p *MyProject) InsertMyProject(db *sql.DB) (string, error) {
 								DO 
 									UPDATE
 										SET status = 1, dt_atualizacao = $3;`)
+	if err != nil {
+		return "", err
+	}
+	_, err = statement.Exec(p.IDProjeto, p.IDDev, dateNow)
+	if err != nil {
+		return "", err
+	}
+	return "", nil
+}
+
+//RemoveMyProject ...
+func (p *MyProject) RemoveMyProject(db *sql.DB) (string, error) {
+	dateNow := time.Now()
+
+	// verify user_name exist
+	count := 0
+	err := db.QueryRow(`SELECT COUNT(*)
+					FROM pessoa
+					WHERE id = $1 AND tipo_pessoa = 1`, p.IDDev).Scan(&count)
+	if err != nil {
+		return "", err
+	}
+	if count <= 0 {
+		return "Id Dev não encontrado", nil
+	}
+	// add to my projects
+	statement, err := db.Prepare(`UPDATE meusprojetos
+									 SET status = 0, 
+										 dt_atualizacao = $3
+								   WHERE id_projeto = $1 AND id_dev = $2;`)
 	if err != nil {
 		return "", err
 	}

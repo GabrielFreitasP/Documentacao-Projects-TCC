@@ -251,6 +251,37 @@ func InsertMyProject(w http.ResponseWriter, r *http.Request) {
 	t.ResponsePostWithJSON(w, http.StatusOK, p)
 }
 
+//RemoveMyProject ...
+func RemoveMyProject(w http.ResponseWriter, r *http.Request) {
+	var p model.MyProject
+	var t util.App
+	var d db.DB
+	err := d.Connection()
+	if err != nil {
+		log.Printf("[handler/DeleteMyProject] -  Erro ao tentar abrir conexao. Erro: %s", err.Error())
+		return
+	}
+	db := d.DB
+	defer db.Close()
+
+	decoder := json.NewDecoder(r.Body)
+	if err := decoder.Decode(&p); err != nil {
+		t.ResponseWithError(w, http.StatusBadRequest, "Invalid request payload", err.Error())
+		return
+	}
+	defer r.Body.Close()
+	msg, err := p.RemoveMyProject(db)
+	if err != nil {
+		t.ResponseWithError(w, http.StatusBadRequest, "Erro ao remover dos meus projetos", err.Error())
+		return
+	}
+	if msg != "" {
+		t.ResponseWithError(w, http.StatusBadRequest, "Erro ao remover dos meus projetos", msg)
+		return
+	}
+	t.ResponsePostWithJSON(w, http.StatusOK, p)
+}
+
 //GetMyProjects ...
 func GetMyProjects(w http.ResponseWriter, r *http.Request) {
 	var p model.MyProject
