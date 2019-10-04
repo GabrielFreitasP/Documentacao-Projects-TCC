@@ -1,8 +1,5 @@
 export interface Person {
-	id: number;
-	status: number;
-	dt_cadastro: string;
-	dt_atualizacao: string;
+	id?: number;
 	tipo_pessoa: number;
 	nome: string;
 	apelido: string;

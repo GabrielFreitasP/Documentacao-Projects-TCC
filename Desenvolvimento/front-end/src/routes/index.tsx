@@ -12,6 +12,7 @@ import HeaderMenu from '../components/header-menu';
 import PrivateRoutes from './private-routes';
 import Login from '../containers/login';
 import { isLoggedIn } from '../util/auth.util';
+import Register from '../containers/register';
 
 // @ts-ignore
 @withRouter
@@ -23,7 +24,8 @@ export default class Routes extends React.Component {
 
     return (
       <Switch>
-        <Route  path={`${publicUrl}/login`} component={Login}/>
+        <Route path={`${publicUrl}/login`} component={Login}/>
+        <Route path={`${publicUrl}/register`} component={Register}/>
         {isLoggedIn() ?
           <>
             <div>

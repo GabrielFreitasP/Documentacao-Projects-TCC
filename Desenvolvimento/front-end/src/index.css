@@ -37,10 +37,53 @@ code {
   display: block !important;
 }
 
+.button-primary {
+  background-color: #43425D;
+}
+
 input:read-only {
   background-color: rgba(0,0,0,.05) !important;
 }
 
 textarea:read-only {
   background-color: rgba(0,0,0,.05) !important;
+}
+
+.ui.button {
+  font-weight: 100 !important;
+}
+
+.ui.blue.button {
+  background-color: #43425D !important;  
+}
+
+.ui.blue.button:hover {
+  background-color: #35354b !important;
+}
+
+.ui.basic.blue.button, .ui.basic.blue.buttons .button {
+  box-shadow: 0 0 0 1px #43425D inset !important;
+  color: #43425D !important;
+  background-color: white !important;
+}
+
+.ui.basic.blue.button:hover, .ui.basic.blue.buttons:hover .button:hover {
+  box-shadow: 0 0 0 1px #35354b inset !important;
+  color: #35354b !important;
+}
+
+a {
+  color: #43425D !important;
+}
+
+.ui.blue.header {
+  color: #43425D !important;
+}
+
+.ui.blue.card, .ui.blue.cards>.card, .ui.cards>.blue.card {
+  box-shadow: 0 0 0 1px #d4d4d5, 0 2px 0 0 #43425D, 0 1px 3px 0 #d4d4d5;
+}
+
+.ui.blue.card:hover, .ui.blue.cards>.card:hover, .ui.cards>.blue.card:hover {
+  box-shadow: 0 0 0 1px #d4d4d5, 0 2px 0 0 #2b2b72, 0 1px 3px 0 #d4d4d5;
 }
