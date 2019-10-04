@@ -110,10 +110,12 @@ func (p *Project) GetProject(db *sql.DB, idPessoa int) error {
 		p.Empresa.ID = p.IDEmpresa
 	} else {
 		err = db.QueryRow(`SELECT p.nome, p.id_empresa, pe.apelido, p.palavras_chaves, p.area_projeto, p.data_limite, p.descricao,
-									(SELECT COUNT(*) > 0 FROM meusprojetos mp WHERE mp.id_dev = p.id AND mp.status = 1 ) as is_favorite
+								(SELECT COUNT(*) > 0 FROM meusprojetos mp 
+									WHERE mp.id_projeto = p.id AND mp.id_dev = $2
+										AND mp.status = 1) as is_favorite
 						FROM projetos p
 						INNER JOIN pessoa pe ON p.id_empresa = pe.id
-						WHERE p.id = $1`, p.ID).Scan(&p.Nome, &p.IDEmpresa, &p.Empresa.Nome, &p.PalavrasChaves, &p.AreaProjeto, &p.DataLimite, &p.Descricao, &p.IsFavorite)
+						WHERE p.id = $1`, p.ID, idPessoa).Scan(&p.Nome, &p.IDEmpresa, &p.Empresa.Nome, &p.PalavrasChaves, &p.AreaProjeto, &p.DataLimite, &p.Descricao, &p.IsFavorite)
 		p.Empresa.ID = p.IDEmpresa
 	}
 
