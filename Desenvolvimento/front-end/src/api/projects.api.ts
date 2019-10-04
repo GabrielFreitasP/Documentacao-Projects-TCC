@@ -20,3 +20,11 @@ export const getProjects = (params: any, companyId?: number) => {
 export const getProject = (projectId: number, personId: number) => {
     return axios.request({ method: 'get', baseURL: backend, url: `/project/${projectId}/person/${personId}` });
 }
+
+export const postMyProject = (id_projeto: number, id_dev: number, remove: boolean = false) => {
+    if (!remove) {
+        return axios.request({ method: 'post', baseURL: backend, url: `/myproject`, data: { id_projeto, id_dev } });
+    } else {
+        return axios.request({ method: 'post', baseURL: backend, url: `/myproject/remove`, data: { id_projeto, id_dev } });
+    }
+}

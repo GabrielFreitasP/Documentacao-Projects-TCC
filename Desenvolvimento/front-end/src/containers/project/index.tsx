@@ -22,6 +22,12 @@ export default class Project extends React.Component<RouteComponentProps<{ id: s
         setHistory(`projects`);
     };
 
+    handleFavorite = async () => {
+        const { postMyProject } = this.props.project;
+        const id_dev = getUser().id_pessoa;
+        await postMyProject(id_dev);
+    }
+
     handleSubmit = async (e: any) => {
         e.preventDefault();
         const { saveProject } = this.props.project;
@@ -63,7 +69,7 @@ export default class Project extends React.Component<RouteComponentProps<{ id: s
                             <Form.Field>
                                 {
                                     !isCompany ? 
-                                        (<Icon size="big" name={project.is_favorite ? 'heart' : 'heart outline'} link onClick={() => {}} />)
+                                        (<Icon size="big" name={project.is_favorite ? 'heart' : 'heart outline'} link onClick={this.handleFavorite} />)
                                         :
                                         isEditing ?
                                             (<Button primary disabled>Editando</Button>)
@@ -134,15 +140,12 @@ export default class Project extends React.Component<RouteComponentProps<{ id: s
                                 {
                                     !isEditing || !isCompany ?
                                         (
-                                            <>
-                                                <Button onClick={this.list}>Voltar</Button>
-                                            </>
+                                            <Button onClick={this.list}>Voltar</Button>
                                         )
                                         :
                                         (
                                             <Button.Group>
-                                                <Button onClick={() => setEdit(false)}>Cancelar</Button>
-                                                <Button.Or text='ou' />
+                                                <Button type='button' onClick={() => { setEdit(false); this.list(); }}>Cancelar</Button>
                                                 <Button positive type='submit' loading={isLoading}>Salvar</Button>
                                             </Button.Group>
                                         )
