@@ -82,6 +82,61 @@ export default class MainMenu extends React.Component<Props> {
                 <Icon name='sticky note'/>
                 Projetos
             </Menu.Item>
+
+            <Menu.Item
+              id='companies-menu'
+              name='companies'
+              active={activated === 'companies'}
+              url='companies'
+              className={'text-white'}
+              onClick={this.handleItemClick}>
+                <Icon name='globe'/>
+                Empresas
+            </Menu.Item>
+
+            {/* <Menu.Item
+              id='my-projects-menu'
+              name='my_projects'
+              active={activated === 'my_projects'}
+              url='my_projects'
+              className={'text-white'}
+              onClick={this.handleItemClick}>
+                <Icon name='wechat'/>
+                Conversas
+            </Menu.Item>
+
+            <Menu.Item
+              id='my-projects-menu'
+              name='my_projects'
+              active={activated === 'my_projects'}
+              url='my_projects'
+              className={'text-white'}
+              onClick={this.handleItemClick}>
+                <Icon name='calendar alternate outline'/>
+                Calendário
+            </Menu.Item> */}
+
+            <Menu.Item
+              id='help-menu'
+              name='help'
+              active={activated === 'help'}
+              url='help'
+              className={'text-white'}
+              onClick={this.handleItemClick}>
+                <Icon name='life ring outline'/>
+                Ajuda
+            </Menu.Item>
+
+            <Menu.Item
+              id='settings-menu'
+              name='settings'
+              active={activated === 'settings'}
+              url='settings'
+              className={'text-white'}
+              onClick={this.handleItemClick}>
+                <Icon name='setting'/>
+                Configuração
+            </Menu.Item>
         </Sidebar>
       </>
     );

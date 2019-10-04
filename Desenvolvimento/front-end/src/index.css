@@ -110,5 +110,6 @@ textarea:read-only {
 }
 
 .ui.vertical.menu .active.item {
-  border-left: 4px #A3A0FB solid;
+  border-left: 0.24286em #A3A0FB solid;
+  padding-left: 0.9em;
 }
