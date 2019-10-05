@@ -148,12 +148,16 @@ func (p *ProjectFilter) GetProjectsByCompany(db *sql.DB, IDEmpresa int) ([]Proje
 		where = append(where, fmt.Sprintf("to_date(p.data_limite, 'DD/MM/YYYY') <= to_date($%d, 'DD/MM/YYYY')", i))
 		values = append(values, p.DataLimite)
 	}
+	and := ""
+	if i > 1 {
+		and = " AND "
+	}
 
 	rows, err := db.Query(`SELECT p.id, p.status, p.dt_cadastro, COALESCE(CAST(p.dt_atualizacao as varchar), '') as dt_atualizacao, 
 									p.nome, p.id_empresa, pe.apelido, p.palavras_chaves, p.area_projeto, p.data_limite, p.descricao
 							FROM projetos p
 							INNER JOIN pessoa pe ON p.id_empresa = pe.id AND pe.tipo_pessoa = 0
-							WHERE p.status = 1 AND `+strings.Join(where, " AND ")+`
+							WHERE p.status = 1 `+and+strings.Join(where, " AND ")+`
 							ORDER BY p.id`, values...)
 	if err != nil {
 		return nil, err
@@ -301,13 +305,30 @@ func (p *MyProject) RemoveMyProject(db *sql.DB) (string, error) {
 
 // GetMyProjects ...
 func (p *MyProject) GetMyProjects(db *sql.DB, idDev int) ([]Project, error) {
-	rows, err := db.Query(`SELECT p.id, p.status, p.dt_cadastro, COALESCE(CAST(p.dt_atualizacao as varchar), '') as dt_atualizacao, 
-							p.nome, p.id_empresa, pe.apelido, p.palavras_chaves, p.area_projeto, p.data_limite, p.descricao
-						FROM meusprojetos mp
-						INNER JOIN projetos p ON mp.id_projeto = p.id
-						INNER JOIN pessoa pe ON p.id_empresa = pe.id AND pe.tipo_pessoa = 0
-						WHERE mp.id_dev = $1 AND p.status = 1 AND mp.status = 1
-						ORDER BY p.id`, idDev)
+	var isCompany bool
+	err := db.QueryRow(`SELECT COUNT(*) > 0
+					FROM pessoa pe
+					WHERE pe.id = $1 AND pe.tipo_pessoa = 0`, idDev).Scan(&isCompany)
+
+	query := `SELECT p.id, p.status, p.dt_cadastro, COALESCE(CAST(p.dt_atualizacao as varchar), '') as dt_atualizacao, 
+				p.nome, p.id_empresa, pe.apelido, p.palavras_chaves, p.area_projeto, p.data_limite, p.descricao
+			FROM meusprojetos mp
+			INNER JOIN projetos p ON mp.id_projeto = p.id
+			INNER JOIN pessoa pe ON p.id_empresa = pe.id AND pe.tipo_pessoa = 0
+			WHERE mp.id_dev = $1 AND p.status = 1 AND mp.status = 1
+			ORDER BY p.id`
+
+	if isCompany {
+		query = `SELECT p.id, p.status, p.dt_cadastro, COALESCE(CAST(p.dt_atualizacao as varchar), '') as dt_atualizacao, 
+					p.nome, p.id_empresa, pe.apelido, p.palavras_chaves, p.area_projeto, p.data_limite, p.descricao
+				FROM projetos p
+				INNER JOIN pessoa pe ON p.id_empresa = pe.id AND pe.tipo_pessoa = 0
+				WHERE p.id_empresa = $1 AND p.status = 1
+				ORDER BY p.id`
+	}
+
+	rows, err := db.Query(query, idDev)
+
 	if err != nil {
 		return nil, err
 	}

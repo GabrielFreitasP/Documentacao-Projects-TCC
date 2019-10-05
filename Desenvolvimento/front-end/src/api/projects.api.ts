@@ -28,3 +28,7 @@ export const postMyProject = (id_projeto: number, id_dev: number, remove: boolea
         return axios.request({ method: 'post', baseURL: backend, url: `/myproject/remove`, data: { id_projeto, id_dev } });
     }
 }
+
+export const getMyProjects = (personId: number) => {
+    return axios.request({ method: 'get', baseURL: backend, url: `/myproject/${personId}` });
+}
