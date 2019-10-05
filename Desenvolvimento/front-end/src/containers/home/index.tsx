@@ -15,11 +15,6 @@ interface Props {
 @observer
 export default class Home extends React.Component<Props> {
 
-  componentDidMount = () => {
-    const { setRoutes } = this.props.mainMenu;
-    setRoutes();
-  }
-
   redirect = (url: string) => {
     const { setMenuActive } = this.props.mainMenu;
     setMenuActive(url);

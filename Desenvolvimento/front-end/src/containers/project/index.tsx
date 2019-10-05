@@ -136,7 +136,7 @@ export default class Project extends React.Component<RouteComponentProps<{ id: s
                             <Form.Field>
                                 {
                                     !isCompany ?
-                                        project.is_favorite ? 
+                                        !project.is_favorite ? 
                                             (<Button color={'green'} onClick={this.handleFavorite}>
                                                 <Icon name='add' />
                                                 Adicionar ao Meus Projetos

@@ -91,7 +91,6 @@ export default class ProjectsStore {
     const data = { ...this._filter }
     getProjects(data, companyId)
       .then((res) => {
-        console.log(res.data.records);
         this.records = res.data.records;
       })
       .catch(err => {

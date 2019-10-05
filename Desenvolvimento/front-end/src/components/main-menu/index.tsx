@@ -13,6 +13,13 @@ interface Props {
 @observer
 export default class MainMenu extends React.Component<Props> {
 
+  componentDidMount = () => {
+    const main = this.props.mainMenu;
+    if (main) {
+      main.setRoutes();
+    }
+  }
+
   handleItemClick = (_: any, { name, url }: any) => {
 
     const { setMenuActive } = this.props.mainMenu!;
