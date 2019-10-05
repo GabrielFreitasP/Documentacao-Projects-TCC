@@ -169,7 +169,8 @@ func GetProjectsByCompany(w http.ResponseWriter, r *http.Request) {
 	}
 
 	p.NomeProjeto = r.FormValue("nome_projeto")
-	p.PalavrasChaves = r.FormValue("palavras_chaves")
+	p.NomeEmpresa = r.FormValue("nome_empresa")
+	p.PalavrasChave = r.FormValue("palavras_chave")
 	p.AreaProjeto = r.FormValue("area_projeto")
 	p.DataLimite = r.FormValue("data_limite")
 
@@ -202,7 +203,7 @@ func GetProjects(w http.ResponseWriter, r *http.Request) {
 
 	p.NomeProjeto = r.FormValue("nome_projeto")
 	p.NomeEmpresa = r.FormValue("nome_empresa")
-	p.PalavrasChaves = r.FormValue("palavras_chaves")
+	p.PalavrasChave = r.FormValue("palavras_chave")
 	p.AreaProjeto = r.FormValue("area_projeto")
 	p.DataLimite = r.FormValue("data_limite")
 

@@ -15,27 +15,27 @@ type CompanyProject struct {
 
 //Project struct
 type Project struct {
-	ID             int64          `json:"id"`
-	Status         int64          `json:"status"`
-	DtCadastro     string         `json:"dt_cadastro"`
-	DtAtualizacao  string         `json:"dt_atualizacao"`
-	Nome           string         `json:"nome"`
-	IDEmpresa      int64          `json:"id_empresa"`
-	Empresa        CompanyProject `json:"empresa"`
-	PalavrasChaves string         `json:"palavras_chaves"`
-	AreaProjeto    string         `json:"area_projeto"`
-	DataLimite     string         `json:"data_limite"`
-	Descricao      string         `json:"descricao"`
-	IsFavorite     bool           `json:"is_favorite"`
+	ID            int64          `json:"id"`
+	Status        int64          `json:"status"`
+	DtCadastro    string         `json:"dt_cadastro"`
+	DtAtualizacao string         `json:"dt_atualizacao"`
+	Nome          string         `json:"nome"`
+	IDEmpresa     int64          `json:"id_empresa"`
+	Empresa       CompanyProject `json:"empresa"`
+	PalavrasChave string         `json:"palavras_chave"`
+	AreaProjeto   string         `json:"area_projeto"`
+	DataLimite    string         `json:"data_limite"`
+	Descricao     string         `json:"descricao"`
+	IsFavorite    bool           `json:"is_favorite"`
 }
 
 //ProjectFilter struct
 type ProjectFilter struct {
-	NomeProjeto    string `json:"nome_projeto"`
-	NomeEmpresa    string `json:"nome_empresa"`
-	PalavrasChaves string `json:"palavras_chaves"`
-	AreaProjeto    string `json:"area_projeto"`
-	DataLimite     string `json:"data_limite"`
+	NomeProjeto   string `json:"nome_projeto"`
+	NomeEmpresa   string `json:"nome_empresa"`
+	PalavrasChave string `json:"palavras_chave"`
+	AreaProjeto   string `json:"area_projeto"`
+	DataLimite    string `json:"data_limite"`
 }
 
 // MyProject struct
@@ -66,7 +66,7 @@ func (p *Project) InsertProject(db *sql.DB) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	err = statement.QueryRow(dateNow, p.Nome, p.IDEmpresa, p.PalavrasChaves, p.AreaProjeto, p.DataLimite, p.Descricao).Scan(&p.ID, &p.Status, &p.DtCadastro)
+	err = statement.QueryRow(dateNow, p.Nome, p.IDEmpresa, p.PalavrasChave, p.AreaProjeto, p.DataLimite, p.Descricao).Scan(&p.ID, &p.Status, &p.DtCadastro)
 	if err != nil {
 		return "", err
 	}
@@ -90,7 +90,7 @@ func (p *Project) UpdateProject(db *sql.DB) error {
 		return err
 	}
 
-	err = statement.QueryRow(dateNow, p.Nome, p.PalavrasChaves, p.AreaProjeto, p.DataLimite, p.Descricao, p.ID, p.IDEmpresa).Scan(&p.Status, &p.DtCadastro, &p.DtAtualizacao, &p.Empresa.Nome)
+	err = statement.QueryRow(dateNow, p.Nome, p.PalavrasChave, p.AreaProjeto, p.DataLimite, p.Descricao, p.ID, p.IDEmpresa).Scan(&p.Status, &p.DtCadastro, &p.DtAtualizacao, &p.Empresa.Nome)
 	p.Empresa.ID = p.IDEmpresa
 	return err
 }
@@ -106,7 +106,7 @@ func (p *Project) GetProject(db *sql.DB, idPessoa int) error {
 		err = db.QueryRow(`SELECT p.nome, p.id_empresa, pe.apelido, p.palavras_chaves, p.area_projeto, p.data_limite, p.descricao
 						FROM projetos p
 						INNER JOIN pessoa pe ON p.id_empresa = pe.id
-						WHERE p.id = $1`, p.ID).Scan(&p.Nome, &p.IDEmpresa, &p.Empresa.Nome, &p.PalavrasChaves, &p.AreaProjeto, &p.DataLimite, &p.Descricao)
+						WHERE p.id = $1`, p.ID).Scan(&p.Nome, &p.IDEmpresa, &p.Empresa.Nome, &p.PalavrasChave, &p.AreaProjeto, &p.DataLimite, &p.Descricao)
 		p.Empresa.ID = p.IDEmpresa
 	} else {
 		err = db.QueryRow(`SELECT p.nome, p.id_empresa, pe.apelido, p.palavras_chaves, p.area_projeto, p.data_limite, p.descricao,
@@ -115,7 +115,7 @@ func (p *Project) GetProject(db *sql.DB, idPessoa int) error {
 										AND mp.status = 1) as is_favorite
 						FROM projetos p
 						INNER JOIN pessoa pe ON p.id_empresa = pe.id
-						WHERE p.id = $1`, p.ID, idPessoa).Scan(&p.Nome, &p.IDEmpresa, &p.Empresa.Nome, &p.PalavrasChaves, &p.AreaProjeto, &p.DataLimite, &p.Descricao, &p.IsFavorite)
+						WHERE p.id = $1`, p.ID, idPessoa).Scan(&p.Nome, &p.IDEmpresa, &p.Empresa.Nome, &p.PalavrasChave, &p.AreaProjeto, &p.DataLimite, &p.Descricao, &p.IsFavorite)
 		p.Empresa.ID = p.IDEmpresa
 	}
 
@@ -133,10 +133,15 @@ func (p *ProjectFilter) GetProjectsByCompany(db *sql.DB, IDEmpresa int) ([]Proje
 		values = append(values, "%"+p.NomeProjeto+"%")
 		i++
 	}
-	if p.PalavrasChaves != "" {
-		palavras := strings.Join(strings.Split(p.PalavrasChaves, ","), "|")
+	if p.NomeEmpresa != "" {
+		where = append(where, fmt.Sprintf("(pe.nome LIKE $%d OR pe.apelido LIKE $%d)", i, i))
+		values = append(values, "%"+p.NomeEmpresa+"%")
+		i++
+	}
+	if p.PalavrasChave != "" {
+		palavras := strings.Join(strings.Split(strings.ReplaceAll(p.PalavrasChave, " ", ""), ","), "%|%")
 		where = append(where, fmt.Sprintf("p.palavras_chaves SIMILAR TO $%d", i))
-		values = append(values, "("+palavras+")%")
+		values = append(values, "(%"+palavras+"%)")
 		i++
 	}
 	if p.AreaProjeto != "" {
@@ -169,7 +174,7 @@ func (p *ProjectFilter) GetProjectsByCompany(db *sql.DB, IDEmpresa int) ([]Proje
 		var project Project
 		var nomeEmpresa string
 		if err = rows.Scan(&project.ID, &project.Status, &project.DtCadastro, &project.DtAtualizacao, &project.Nome, &project.IDEmpresa, &nomeEmpresa,
-			&project.PalavrasChaves, &project.AreaProjeto, &project.DataLimite, &project.Descricao); err != nil {
+			&project.PalavrasChave, &project.AreaProjeto, &project.DataLimite, &project.Descricao); err != nil {
 			return nil, err
 		}
 		project.Empresa.ID = project.IDEmpresa
@@ -191,14 +196,14 @@ func (p *ProjectFilter) GetProjects(db *sql.DB) ([]Project, error) {
 		i++
 	}
 	if p.NomeEmpresa != "" {
-		where = append(where, fmt.Sprintf("pe.nome LIKE $%d", i))
+		where = append(where, fmt.Sprintf("(pe.nome LIKE $%d OR pe.apelido LIKE $%d)", i, i))
 		values = append(values, "%"+p.NomeEmpresa+"%")
 		i++
 	}
-	if p.PalavrasChaves != "" {
-		palavras := strings.Join(strings.Split(p.PalavrasChaves, ","), "|")
+	if p.PalavrasChave != "" {
+		palavras := strings.Join(strings.Split(strings.ReplaceAll(p.PalavrasChave, " ", ""), ","), "%|%")
 		where = append(where, fmt.Sprintf("p.palavras_chaves SIMILAR TO $%d", i))
-		values = append(values, "("+palavras+")%")
+		values = append(values, "(%"+palavras+"%)")
 		i++
 	}
 	if p.AreaProjeto != "" {
@@ -231,7 +236,7 @@ func (p *ProjectFilter) GetProjects(db *sql.DB) ([]Project, error) {
 		var project Project
 		var nomeEmpresa string
 		if err = rows.Scan(&project.ID, &project.Status, &project.DtCadastro, &project.DtAtualizacao, &project.Nome, &project.IDEmpresa, &nomeEmpresa,
-			&project.PalavrasChaves, &project.AreaProjeto, &project.DataLimite, &project.Descricao); err != nil {
+			&project.PalavrasChave, &project.AreaProjeto, &project.DataLimite, &project.Descricao); err != nil {
 			return nil, err
 		}
 		project.Empresa.ID = project.IDEmpresa
@@ -339,7 +344,7 @@ func (p *MyProject) GetMyProjects(db *sql.DB, idDev int) ([]Project, error) {
 		var project Project
 		var nomeEmpresa string
 		if err = rows.Scan(&project.ID, &project.Status, &project.DtCadastro, &project.DtAtualizacao, &project.Nome, &project.IDEmpresa, &nomeEmpresa,
-			&project.PalavrasChaves, &project.AreaProjeto, &project.DataLimite, &project.Descricao); err != nil {
+			&project.PalavrasChave, &project.AreaProjeto, &project.DataLimite, &project.Descricao); err != nil {
 			return nil, err
 		}
 		project.IsFavorite = true
