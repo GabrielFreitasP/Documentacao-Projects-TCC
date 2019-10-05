@@ -43,7 +43,7 @@ export default class NewProject extends React.Component<Props>{
                                 <Form.Input
                                     fluid
                                     id="nome"
-                                    label='Nome projeto'
+                                    label='Nome do Projeto'
                                     value={newProject.nome}
                                     onChange={handleChangeNew}/>
                             </Form.Field>
@@ -64,16 +64,16 @@ export default class NewProject extends React.Component<Props>{
                             <Form.Field>
                                 <Form.Input
                                     fluid
-                                    id="palavras_chaves" 
-                                    label='Palavras chave'
-                                    value={newProject.palavras_chaves}
+                                    id="palavras_chave" 
+                                    label='Palavras Chave'
+                                    value={newProject.palavras_chave}
                                     onChange={handleChangeNew}/>
                             </Form.Field>
                             
                             <Form.Field>
                                 <Form.Input
                                     id="area_projeto" 
-                                    label='Area projeto'
+                                    label='Área do Projeto'
                                     value={newProject.area_projeto}
                                     onChange={handleChangeNew}/>
                             </Form.Field>
@@ -83,7 +83,7 @@ export default class NewProject extends React.Component<Props>{
                             <Form.Field>
                                 <Form.TextArea
                                     id="descricao" 
-                                    label='Descriçao'
+                                    label='Descrição'
                                     value={newProject.descricao}
                                     onChange={handleChangeNew}/>
                             </Form.Field>

@@ -3,7 +3,7 @@ export interface ProjectInterface {
     nome: string;
     id_empresa: number;
     empresa?: { id: number; nome: string; };
-    palavras_chaves: string;
+    palavras_chave: string;
     area_projeto: string;
     data_limite: string;
     descricao: string;

@@ -188,13 +188,17 @@ export default class Register extends React.Component<RouteComponentProps<{ pers
                 </GridColumn>
               </GridRow>
 
-              <GridRow style={{ justifyContent: 'center' }} >
-                  <Button basic size='large' loading={isLoading} onClick={this.handleBack}>
+              <GridRow columns={2}>
+                <GridColumn>
+                  <Button basic fluid size='large' onClick={this.handleBack}>
                     Voltar
                   </Button>
-                  <Button color='blue' size='large' loading={isLoading} onClick={this.handleSubmit}>
+                </GridColumn>
+                <GridColumn>
+                  <Button color='blue' fluid size='large' loading={isLoading} onClick={this.handleSubmit}>
                     Cadastrar
                   </Button>
+                </GridColumn>
               </GridRow>
 
               <GridRow style={{ justifyContent: 'center' }}>

@@ -134,7 +134,7 @@ CREATE TABLE public.Projetos
 	palavras_chaves varchar(50) NULL,
 	area_projeto varchar(50) NOT NULL,
 	data_limite varchar(50) NULL,
-	descricao varchar(50) NOT NULL
+	descricao varchar(400) NOT NULL
 )
 ;
 

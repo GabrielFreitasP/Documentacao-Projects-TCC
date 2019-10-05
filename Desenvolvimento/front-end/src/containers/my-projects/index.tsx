@@ -39,7 +39,7 @@ export default class MyProjects extends React.Component<Props> {
         <Header color='blue'>
           <Header.Content>
             <h2>
-              Todos os seus projetos estãos aqui
+              Meus projetos
             </h2>
           </Header.Content>
         </Header>

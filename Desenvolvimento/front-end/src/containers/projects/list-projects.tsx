@@ -119,7 +119,7 @@ export default class ListProjects extends React.Component<Props> {
               <Form.Field>
                 <Form.Input
                   id="nome_projeto"
-                  label='Nome projeto'
+                  label='Nome do Projeto'
                   value={filter.nome_projeto}
                   onChange={handleChangeFilter} />
               </Form.Field>
@@ -140,7 +140,7 @@ export default class ListProjects extends React.Component<Props> {
               <Form.Field>
                 <Form.Input
                   id="area_projeto"
-                  label='Area projeto'
+                  label='Área do Projeto'
                   value={filter.area_projeto}
                   onChange={handleChangeFilter} />
               </Form.Field>
@@ -150,7 +150,7 @@ export default class ListProjects extends React.Component<Props> {
               <Form.Field>
                 <Form.Input
                   id="nome_empresa"
-                  label='Nome empresa'
+                  label='Nome da Empresa'
                   value={filter.nome_empresa}
                   onChange={handleChangeFilter} />
               </Form.Field>
@@ -158,7 +158,7 @@ export default class ListProjects extends React.Component<Props> {
               <Form.Field>
                 <Form.Input
                   id="palavras_chave"
-                  label='Palavras chave'
+                  label='Palavras Chave'
                   value={filter.palavras_chave}
                   onChange={handleChangeFilter} />
               </Form.Field>

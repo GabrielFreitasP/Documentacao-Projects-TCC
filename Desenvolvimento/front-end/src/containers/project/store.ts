@@ -8,7 +8,7 @@ const initialProject = {
   id: 0,
   nome: '',
   id_empresa: 0,
-  palavras_chaves: '',
+  palavras_chave: '',
   area_projeto: '',
   data_limite: '',
   descricao: ''

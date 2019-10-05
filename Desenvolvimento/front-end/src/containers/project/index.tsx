@@ -82,7 +82,7 @@ export default class Project extends React.Component<RouteComponentProps<{ id: s
                                     readOnly={!isEditing}
                                     fluid
                                     id="nome"
-                                    label='Nome projeto'
+                                    label='Nome do Projeto'
                                     value={project.nome}
                                     onChange={handleChange}/>
                             </Form.Field>
@@ -105,9 +105,9 @@ export default class Project extends React.Component<RouteComponentProps<{ id: s
                                 <Form.Input
                                     readOnly={!isEditing}
                                     fluid
-                                    id="palavras_chaves" 
-                                    label='Palavras chave'
-                                    value={project.palavras_chaves}
+                                    id="palavras_chave" 
+                                    label='Palavras Chave'
+                                    value={project.palavras_chave}
                                     onChange={handleChange}/>
                             </Form.Field>
                             
@@ -115,7 +115,7 @@ export default class Project extends React.Component<RouteComponentProps<{ id: s
                                 <Form.Input
                                     readOnly={!isEditing}
                                     id="area_projeto" 
-                                    label='Area projeto'
+                                    label='Área do Projeto'
                                     value={project.area_projeto}
                                     onChange={handleChange}/>
                             </Form.Field>
@@ -126,7 +126,7 @@ export default class Project extends React.Component<RouteComponentProps<{ id: s
                                 <Form.TextArea
                                     readOnly={!isEditing}
                                     id="descricao" 
-                                    label='Descriçao'
+                                    label='Descrição'
                                     value={project.descricao}
                                     onChange={handleChange}/>
                             </Form.Field>
