@@ -153,7 +153,7 @@ export default class Project extends React.Component<RouteComponentProps<{ id: s
 
                         <Form.Group style={{ flexDirection: 'row-reverse' }}>
                             {
-                                id_pessoa === project.id_empresa ?
+                                id_pessoa === project.id_empresa || !isCompany ?
                                     <Form.Field>
                                         {
                                             !isCompany ?

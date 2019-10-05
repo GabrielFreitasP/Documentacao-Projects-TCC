@@ -47,10 +47,15 @@ export default class ProjectsStore {
   @action toggleScreen = () => {
     this.showNewProjectScreen = !this.showNewProjectScreen;
     if (this.showNewProjectScreen) {
-      this.filter = initialFilter;
+      this.handleClear();
     } else {
       this.newProject = initialNewProject;
     }
+  }
+
+  @action handleClear = () => {
+    this.filter = initialFilter;
+    this._filter = initialFilter;
   }
 
   @action handleChangeNew = (event: any, select?: any) => {
