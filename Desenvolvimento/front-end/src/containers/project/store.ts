@@ -65,6 +65,7 @@ export default class ProjectStore {
   @action postMyProject = async (id_dev: number) => {
     this.isLoading = true;
     if (!this.project.id) {
+      // eslint-disable-next-line
       throw 'Id do projeto nao encontrado';
     }
     try {
