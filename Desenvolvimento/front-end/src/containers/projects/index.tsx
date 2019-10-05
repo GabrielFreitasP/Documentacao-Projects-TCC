@@ -17,10 +17,13 @@ export default class Projects extends React.Component<Props> {
 
   componentDidMount() {
     this.props.projects.handleClear();
+    this.props.projects.handleSubmitFilter();
   }
 
   componentWillUnmount() {
     this.props.projects.showNewProjectScreen = false;
+    this.props.projects.handleClear();
+    this.props.projects.handleSubmitFilter();
   }
   
   render() {

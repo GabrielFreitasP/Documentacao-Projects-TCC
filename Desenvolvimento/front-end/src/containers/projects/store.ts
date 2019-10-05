@@ -54,8 +54,8 @@ export default class ProjectsStore {
   }
 
   @action handleClear = () => {
-    this.filter = initialFilter;
     this._filter = initialFilter;
+    this.filter = initialFilter;
   }
 
   @action handleChangeNew = (event: any, select?: any) => {
@@ -98,6 +98,7 @@ export default class ProjectsStore {
   @action getProjects = (companyId?: number) => {
     this.isLoading = true;
     const data = { ...this._filter }
+    console.log(data);
     getProjects(data, companyId)
       .then((res) => {
         this.records = res.data.records;
