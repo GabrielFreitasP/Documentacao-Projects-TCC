@@ -38,9 +38,7 @@ export default class Login extends React.Component<Props> {
 
   handleRegister = async (event: any) => {
     event.preventDefault();
-    const path = 'register';
-    const { setMenuActive } = this.props.mainMenu;
-    setMenuActive(path);
+    const path = 'choose-register-type';
     const { setHistory } = this.props.router;
     setHistory(path);
   }

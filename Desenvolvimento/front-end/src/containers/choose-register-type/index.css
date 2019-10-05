@@ -1,0 +1,101 @@
+.login-register {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    height: 100vh;
+    width: 100%;
+    padding: 10% 0;
+    position: fixed;
+}
+
+.login-box {
+    width: 50%;
+    background-color: white;
+    margin: 0 auto;
+}
+
+.login-box .footer {
+    width: 100%;
+    left: 0px;
+    right: 0px;
+}
+
+.login-box .social {
+    display: block;
+    margin-bottom: 30px;
+}
+
+.login-sidebar {
+    padding: 0px;
+    margin-top: 0px;
+}
+
+.login-sidebar .login-box {
+    right: 0px;
+    position: absolute;
+    height: 100%;
+}
+
+.card {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+}
+
+.card-body {
+    margin: auto 20%;
+    padding: 1.25rem;
+}
+
+@media (max-width: 767px) {
+    .login-register {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .login-box {
+        width: 90%;
+    }
+
+    .login-sidebar {
+        padding: 10% 0;
+    }
+
+    .login-sidebar .login-box {
+        position: relative;
+    }
+}
+
+.title {
+    margin: 0px auto 50px !important;
+}
+
+h1 {
+    margin: 0px 0px 10px !important;
+    text-align: center;
+    font-weight: 100 !important;
+    font-size: 30pt !important;
+}
+
+h3 {
+    margin: 0px !important;
+    text-align: center;
+    color: #9e9ea7;
+    font-weight: 100 !important;
+}
+
+.infos {
+    margin-top: 10px !important;
+}
+
+.forget-password {
+    text-align: end !important;
+}

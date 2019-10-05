@@ -26,11 +26,20 @@ const initialUser = {
 
 export default class RegisterStore {
     @observable user: User = initialUser;
+    @observable confirmPassword: string = '';
     @observable isLoading = false;
+
+    @action handleTypePerson = (typePerson: number) => {        
+        assign(this, 'user.person.tipo_pessoa', typePerson);
+    }
+
+    @action handleClear = () => {        
+        assign(this, 'user', initialUser);
+    }
 
     @action handleChange = (event: any, select?: any) => {
         const { id, value } = select || event.target;
-        assign(this.user, id, value);
+        assign(this, id, value);
     }
 
     @action handleSubmit = async () => {

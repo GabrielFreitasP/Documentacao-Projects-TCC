@@ -13,6 +13,7 @@ import PrivateRoutes from './private-routes';
 import Login from '../containers/login';
 import { isLoggedIn } from '../util/auth.util';
 import Register from '../containers/register';
+import ChooseRegisterType from '../containers/choose-register-type';
 
 // @ts-ignore
 @withRouter
@@ -25,7 +26,8 @@ export default class Routes extends React.Component {
     return (
       <Switch>
         <Route path={`${publicUrl}/login`} component={Login}/>
-        <Route path={`${publicUrl}/register`} component={Register}/>
+        <Route path={`${publicUrl}/choose-register-type`} component={ChooseRegisterType}/>
+        <Route path={`${publicUrl}/register/:personType`} component={Register}/>
         {isLoggedIn() ?
           <>
             <div>
