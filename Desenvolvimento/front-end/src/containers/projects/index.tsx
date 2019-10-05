@@ -15,6 +15,10 @@ interface Props {
 @observer
 export default class Projects extends React.Component<Props> {
 
+  componentDidMount() {
+    this.props.projects.handleClear();
+  }
+
   componentWillUnmount() {
     this.props.projects.showNewProjectScreen = false;
   }
