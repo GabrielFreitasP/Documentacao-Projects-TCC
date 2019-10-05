@@ -24,8 +24,8 @@ export default class Project extends React.Component<RouteComponentProps<{ id: s
 
     handleFavorite = async () => {
         const { postMyProject } = this.props.project;
-        const id_dev = getUser().id_pessoa;
-        await postMyProject(id_dev);
+        const id_pessoa = getUser().id_pessoa;
+        await postMyProject(id_pessoa);
     }
 
     handleSubmit = async (e: any) => {
@@ -53,10 +53,12 @@ export default class Project extends React.Component<RouteComponentProps<{ id: s
             handleChange,
             isLoading,
             isEditing,
+            isRemoving,
             setEdit
         } = this.props.project;
         
         const isCompany = getUser().tipo_pessoa === 0;
+        const id_pessoa = getUser().id_pessoa;
 
         return (
             <Container style={{ padding: 20 }}>
@@ -75,7 +77,24 @@ export default class Project extends React.Component<RouteComponentProps<{ id: s
                             </Grid.Column>
                         </Grid.Row>
                     </Grid>
-                    <Form loading={isLoading && !isEditing}>                        
+                    <Form loading={isLoading && !isEditing}>
+                        {
+                            id_pessoa !== project.id_empresa ?
+                                <Form.Group widths={16}>
+                                    <Form.Field width={4}>
+                                        <Form.Input
+                                            readOnly={!isEditing}
+                                            fluid
+                                            id="empresa.nome"
+                                            label='Empresa'
+                                            icon={<Icon name='info' inverted circular link />}
+                                            value={project.empresa.nome}
+                                            onChange={handleChange}/>
+                                    </Form.Field>
+                                </Form.Group>
+                                :
+                                <></>
+                        }
                         <Form.Group widths='equal'>
                             <Form.Field>
                                 <Form.Input
@@ -133,45 +152,50 @@ export default class Project extends React.Component<RouteComponentProps<{ id: s
                         </Form.Group>
 
                         <Form.Group style={{ flexDirection: 'row-reverse' }}>
-                            <Form.Field>
-                                {
-                                    !isCompany ?
-                                        !project.is_favorite ? 
-                                            (<Button color={'green'} onClick={this.handleFavorite}>
-                                                <Icon name='add' />
-                                                Adicionar ao Meus Projetos
-                                            </Button>)
-                                            :
-                                            (<Button color={'red'} onClick={this.handleFavorite}>
-                                                <Icon name='delete' />
-                                                Remover dos Meus Projetos
-                                            </Button>)                                        
-                                        :
-                                        isEditing ?
-                                            (<>
-                                                <Button color='red' loading={isLoading} style={{marginRight: 10}}>
-                                                    <Icon name='trash' />
-                                                    Excluir
-                                                </Button>
-                                                <Button positive loading={isLoading} onClick={this.handleSubmit}>
-                                                    <Icon name='check' />
-                                                    Salvar
-                                                </Button>
-                                            </>)
-                                            :
-                                            (<>
-                                                <Button color='red' loading={isLoading} style={{marginRight: 10}}>
-                                                    <Icon name='trash' />
-                                                    Excluir
-                                                </Button>
-                                                <Button primary onClick={() => setEdit(true)}>
-                                                    <Icon name='pencil' />
-                                                    Habilitar Edição
-                                                </Button>
-                                            </>)
-                                       
-                                }
-                            </Form.Field>
+                            {
+                                id_pessoa === project.id_empresa ?
+                                    <Form.Field>
+                                        {
+                                            !isCompany ?
+                                                !project.is_favorite ? 
+                                                    (<Button color={'green'} onClick={this.handleFavorite}>
+                                                        <Icon name='add' />
+                                                        Adicionar ao Meus Projetos
+                                                    </Button>)
+                                                    :
+                                                    (<Button color={'red'} onClick={this.handleFavorite}>
+                                                        <Icon name='delete' />
+                                                        Remover dos Meus Projetos
+                                                    </Button>)                                        
+                                                :
+                                                isEditing ?
+                                                    (<>
+                                                        <Button color='red' loading={isLoading && isRemoving} style={{marginRight: 10}}>
+                                                            <Icon name='trash' />
+                                                            Excluir
+                                                        </Button>
+                                                        <Button positive loading={isLoading && !isRemoving} onClick={this.handleSubmit}>
+                                                            <Icon name='check' />
+                                                            Salvar
+                                                        </Button>
+                                                    </>)
+                                                    :
+                                                    (<>
+                                                        <Button color='red' loading={isLoading && isRemoving} style={{marginRight: 10}}>
+                                                            <Icon name='trash' />
+                                                            Excluir
+                                                        </Button>
+                                                        <Button primary onClick={() => setEdit(true)}>
+                                                            <Icon name='pencil' />
+                                                            Habilitar Edição
+                                                        </Button>
+                                                    </>)
+                                            
+                                        }
+                                    </Form.Field>
+                                    :
+                                    <></>
+                            }
                             
                             <Button basic onClick={() => { setEdit(false); this.list(); }}>
                                 <Icon name='arrow left' />

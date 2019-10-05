@@ -6,6 +6,10 @@ import { postProject, getProjects } from '../../api/projects.api';
 const initialNewProject = {
   nome: '',
   id_empresa: 0,
+  empresa: {
+    id: 0,
+    nome: '',
+  },
   palavras_chaves: '',
   area_projeto: '',
   data_limite: '',

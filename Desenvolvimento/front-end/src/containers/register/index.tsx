@@ -163,6 +163,7 @@ export default class Register extends React.Component<RouteComponentProps<{ pers
                       iconPosition='left'
                       id="user.password"
                       placeholder='Senha'
+                      type='password'
                       value={user.password}
                       onChange={handleChange} />
                   </GridColumn>
@@ -173,6 +174,7 @@ export default class Register extends React.Component<RouteComponentProps<{ pers
                       icon='key'
                       iconPosition='left'
                       id="confirmPassword"
+                      type='password'
                       placeholder='Confirmar Senha'
                       value={confirmPassword}
                       onChange={handleChange} />
