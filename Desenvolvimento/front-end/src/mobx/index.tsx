@@ -5,6 +5,7 @@ import { project } from '../containers/project/store';
 import { projects } from '../containers/projects/store';
 import { login } from '../containers/login/store';
 import { register } from '../containers/register/store';
+import { myProjects } from '../containers/my-projects/store';
 
 export {
   router,
@@ -13,5 +14,6 @@ export {
   home,
   project,
   projects,
-  register
+  register,
+  myProjects
 };

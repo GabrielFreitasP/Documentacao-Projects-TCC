@@ -63,9 +63,9 @@ export default class MainMenu extends React.Component<Props> {
 
             <Menu.Item
               id='my-projects-menu'
-              name='my_projects'
-              active={activated === 'my_projects'}
-              url='my_projects'
+              name='my-projects'
+              active={activated === 'my-projects'}
+              url='my-projects'
               className={'text-white'}
               onClick={this.handleItemClick}>
                 <Icon name='clipboard'/>

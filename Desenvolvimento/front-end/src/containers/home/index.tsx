@@ -14,6 +14,12 @@ interface Props {
 @inject('mainMenu', 'router', 'home')
 @observer
 export default class Home extends React.Component<Props> {
+
+  componentDidMount = () => {
+    const { setRoutes } = this.props.mainMenu;
+    setRoutes();
+  }
+
   redirect = (url: string) => {
     const { setMenuActive } = this.props.mainMenu;
     setMenuActive(url);
@@ -27,13 +33,15 @@ export default class Home extends React.Component<Props> {
 
     return (
       <Container style={{ padding: 20 }}>
-        <Header color='blue' as='h2'>
+        <Header color='blue'>
           <Header.Content>
-            O que deseja acessar?
+            <h2>
+              O que deseja acessar?
+            </h2>
           </Header.Content>
         </Header>
         <Card.Group itemsPerRow={2}>
-          {routes.map(e => <Card id={e.route} fluid key={e.route} color='blue' header={e.title} description={e.description} onClick={() => { this.redirect(e.route); }} />)}
+          {routes.map(e => <Card id={e.route} fluid key={e.route} color={e.color} header={e.title} description={e.description} onClick={() => { this.redirect(e.route); }} />)}
         </Card.Group>
       </Container>
     );
