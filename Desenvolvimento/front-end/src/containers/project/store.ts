@@ -8,6 +8,10 @@ const initialProject = {
   id: 0,
   nome: '',
   id_empresa: 0,
+  empresa: {
+    id: 0,
+    nome: '',
+  },
   palavras_chave: '',
   area_projeto: '',
   data_limite: '',
@@ -19,6 +23,8 @@ export default class ProjectStore {
   @observable project: ProjectInterface = initialProject;
 
   @observable isLoading: boolean = false;
+
+  @observable isRemoving: boolean = false;
 
   @observable isEditing: boolean = false;
 
