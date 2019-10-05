@@ -39,7 +39,7 @@ func InsertPerson(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	if msg != "" {
-		t.ResponseWithError(w, http.StatusOK, "Erro ao inserir Pessoa", msg)
+		t.ResponseWithError(w, http.StatusBadRequest, "Erro ao inserir Pessoa", msg)
 		return
 	}
 	t.ResponsePostWithJSON(w, http.StatusOK, u)

@@ -128,9 +128,6 @@ func (p *ProjectFilter) GetProjectsByCompany(db *sql.DB, IDEmpresa int) ([]Proje
 	var where []string
 
 	i := 1
-	where = append(where, fmt.Sprintf("pe.id = $%d", i))
-	values = append(values, IDEmpresa)
-	i++
 	if p.NomeProjeto != "" {
 		where = append(where, fmt.Sprintf("p.nome LIKE $%d", i))
 		values = append(values, "%"+p.NomeProjeto+"%")
