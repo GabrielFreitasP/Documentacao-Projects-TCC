@@ -73,7 +73,7 @@ export default class Login extends React.Component<Props> {
                 iconPosition='left'
                 id="password"
                 type='password'
-                placeholder='Password'
+                placeholder='Senha'
                 value={password}
                 onChange={handleChange} />
 

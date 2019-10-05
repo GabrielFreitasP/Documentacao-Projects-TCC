@@ -35,6 +35,7 @@ export default class RegisterStore {
 
     @action handleClear = () => {        
         assign(this, 'user', initialUser);
+        assign(this, 'confirmPassword', '');
     }
 
     @action handleChange = (event: any, select?: any) => {
