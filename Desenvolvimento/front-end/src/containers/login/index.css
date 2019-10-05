@@ -98,4 +98,6 @@ h3 {
 
 .forget-password {
     text-align: end !important;
+    text-decoration: underline;
+    cursor: pointer;
 }
